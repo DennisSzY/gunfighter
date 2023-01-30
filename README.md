@@ -5,6 +5,12 @@
 o Team members: Xiaomeng Liu, Vishwesh Neelesh, Zhiyu Shi, Haozhe Yang
 
 o Team photo:
+![150209f6dade363f3cfa1289340e63a](https://user-images.githubusercontent.com/122633231/215513192-d0134db9-c3cb-4caf-9b5b-8b40ac654981.jpg)
+o game list
+
+    carrot fantasy
+    
+    BoxHead  
 
 2. Introduction (5% ~250 words)
 
