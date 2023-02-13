@@ -9,5 +9,5 @@ o Team photo:
 
 o paper prototype video (Gun Fighter):    
 
-https://user-images.githubusercontent.com/104490863/218329578-7032a397-27f0-449c-ad09-1472640e9f3b.mp4
+https://user-images.githubusercontent.com/104490863/218481532-f9649fc1-3a84-42b5-9792-aba5c6374f9f.mp4
 
