@@ -11,3 +11,9 @@ o paper prototype video (Gun Fighter):
 
 https://user-images.githubusercontent.com/104490863/218481532-f9649fc1-3a84-42b5-9792-aba5c6374f9f.mp4
 
+
+o Game reference website:
+
+https://www.crazygames.com/game/gun-mayhem-2
+
+https://www.youtube.com/watch?v=-SksNwLmSSE&ab_channel=TheRarestGamer
