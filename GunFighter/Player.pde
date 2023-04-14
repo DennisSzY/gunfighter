@@ -1,141 +1,187 @@
-//画布大小1920 X 1080 P
-final int scrollConstrainX = 1920;
-final int scrollConstrainY  = 1080;
-
-// 每个player都是长宽为50px 的实体
-//向上为负，向下为正
-class Player
-{
-  float x,y; //显示位置, gif 物理中心点
-  float vx = 0; //横向移动速度 
-  float vy = 0; //纵向移动速度
-  float g = 0.7; //纵向加速度
-  float maxSpeed = 4; //主要是保证纵向最大下落速度
-  float h = 25; //实体的高度/2
-  float w = 25; //实体的宽度/2
-  float cooldown = 0;
-  float cooldownTime = 20;
-  //初始状态
+class Player {
+  float x, y; //position
+  float w = 50; //width
+  float h = 50; //height
+  float vx = 5; //horizontal acc
+  float moveSpeed = 0; //horizontal velocity
+  float fallspeed = 4;
+  float gravity = 0.5;
+  float vy = 0;
+  boolean onplatform = false;
   boolean facingRight;
-  boolean onPlatform = true;
+  boolean shooting = false;
+  Boolean keyLeft = false, keyRight = false, keyDown = false, keyUp = false, keyShoot = false;
+  int id;
+  ArrayList<Bullet> bullets = new ArrayList<>();
   
-  //构造函数-初始化位置、朝向
-  Player(float x, float y, boolean facingRight){
+  float bulletProduceInterval = 400; // milliseconds
+  float lastBulletProduceTime = 0; // milliseconds
+  
+  Player(float x, float y, boolean facingRight, int id){
     this.x = x;
     this.y = y;
     this.facingRight = facingRight;
+    this.id = id;
   }
-  //显示（图片+ 位置）
-  void display(Gif image){
-    imageMode(CENTER);
-    image(image, x, y);
-  }  
-  //判断实体之间是否重叠
-  boolean isOverlap(float platformX,float platformY,float platformW,float platformH){
-    // condition for overlap 重叠
-    //实体底部低于平台顶部，顶部高于平台底部
-    //右面超过平台的左边，左边超过平台的右边
-    //
-    return ((this.y + this.h >= platformY - platformH && this.y - this.h <=  platformY + platformH )&&
-              this.x + this.w -10 >=  platformX - platformW && this.x - this.w + 10 <=  platformX + platformW); //添加十个像素，按照脚是否越界来算
+  
+  
+  void update(){
+    if(keyLeft && !keyRight){
+      moveSpeed = -vx;
+      if(x + moveSpeed < 0){
+        this.x = 0;
+      }else{
+        this.x += moveSpeed;
+      }
+      facingRight = false;
+    }else if(keyRight && !keyLeft){
+      moveSpeed = vx;
+      if(x + w + moveSpeed >= width){
+        this.x = width - w;
+      }else{
+        this.x += moveSpeed;
+      }
+      facingRight = true;
+    }
+    
+    if(keyUp && onplatform){
+      this.vy = -14;
+      this.onplatform = false;
+    }
+    
+    if(!onplatform){
+      //collide(platforms);
+      this.vy += gravity;
+      if(this.vy >= 0){
+        this.vy = fallspeed;
+      }
+      this.y += this.vy;
+    }else{
+      this.vy = 1;
+      this.y += this.vy;
+    }
+    
+    if(keyShoot){
+      shooting = true;
+      Bullet bullet;
+      
+      if(bullets.size() <= 8 && millis() - lastBulletProduceTime > bulletProduceInterval){
+        if(facingRight){
+          bullet = new Bullet(this.x + this.w/2, this.y + 10, 4, this.id);
+        }else{
+          bullet = new Bullet(this.x + this.w/2, this.y + 10, -4, this.id);
+        }
+      
+        bullets.add(bullet);
+        lastBulletProduceTime = millis();
+      }
+      
+    }
+    
+    bulletUpdate();
+    
   }
-  //与平台的关系？ 是否单独新增类
-  void collide(float platformX,float platformY,float platformW,float platformH,int platformType) {
-    if (platformType == 2){ // exit type
-        //nextLevel = true; //死亡？？？
-        return;
-     }
-    // condition for overlap 和平台交叉
-    if (this.isOverlap(platformX,platformY,platformW,platformH)) { //这一帧会相撞
-      if (this.vy >= 0) { // while falling
-          // the condition for the previous frame being above the platfom 判断前一帧在平台上方，则是正常掉落，否则则为撞击边缘
-          if ((this.y + this.h) -(platformY - platformH) <= this.vy) {
-            //println("landing");
-            this.y = platformY - platformH - this.h;
-            this.vy = 0;
-            this.onPlatform = true;
-            //更新人物状态图像
-            playerBlueImage = playerBlueDefault;
-          }else { // hitting side of platform while falling 撞到边了 
-            // println("falling side");
-            this.vx = 0; // stop sideways motion
-            if (this.x < platformX) {
-              this.x = platformX -platformW - this.w; // left side collide
-            }else {
-              this.x = platformX + platformW + this.w; // right side collide
-            }
-          }
-        }else { // while rising
-          // bumping under platform, stop
-          if ((platformY + platformH) - (this.y - this.h) < -this.vy) {
-            //println("head bump");
-            this.vy = 0;
-            this.y = platformY + platformH + 1;
-          } else { // hitting side of platform while rising
-            //println("rising side");
-            this.vx = 0;
-            if (this.x < platformX) this.x =  platformX - this.w - 1; // left side collide
-            else this.x = platformX + platformW + 1; // right side collide
-          }
-       
-      } 
+  
+  void bulletUpdate(){
+    for(int i = bullets.size()-1; i >= 0; i--){
+      Bullet bullet = bullets.get(i);
+      bullet.update();
+      if(bullet.x >= width || bullet.x <= 0){
+       bullets.remove(i); 
+      }
+      bullet.display();
+      
     }
   }
   
-  //运动状态更新
-  void update(){
-     // left right motion
-    if (keyLeft && !keyRight) {
-      this.facingRight = false;
-      this.vx = constrain(this.vx - 1, -this.maxSpeed, 0);
-      this.x = constrain(this.x + this.vx, 0, scrollConstrainX);
-      playerBlueImage = playerBlueMoveLeft;
-    } else if (keyRight && !keyLeft) {
-      this.facingRight = true;
-      this.vx = constrain(this.vx + 1, 0, this.maxSpeed);
-      this.x = constrain(this.x + this.vx, 0, scrollConstrainX);
-      playerBlueImage = playerBlueMoveRight;
-    } else{
-      if (abs(this.vx) > 0.5) this.vx *= 0.5;
-      else this.vx = 0;
-      if(!facingRight){
-        playerBlueImage = playerBlueFacingLeft;
-      }else{
-        playerBlueImage = playerBlueDefault;
+  
+  void collide(ArrayList<Platform> platforms){
+    boolean flag = false;
+    for(int i = 0; i < platforms.size(); i++){
+      Platform platform = platforms.get(i);
+      if(y + h >= platform.y - 1 && y + h <= platform.y + 1 && x + w >= platform.x && x <= platform.x + platform.w && vy > 0){
+        y = platform.y - h;
+        onplatform = true;
+        flag = true;
       }
     }
-    if (keyUp && this.onPlatform) {
-      this.vy = -15;
-      this.onPlatform = false;
+    
+    if(!flag){
+      onplatform = false;
     }
-    if (!this.onPlatform) {
-      if(keyRight && !keyLeft){
-        playerBlueImage = playerBlueJumpRight;
-      }else if(!keyRight && keyLeft){
-        playerBlueImage = playerBlueJumpLeft;
-      }else if(!facingRight){
-        playerBlueImage = playerBlueJumpFacingLeft;
-      }else{
-        playerBlueImage = playerBlueJump;
-      }  
-      this.vy += this.g;
-    }
-    //y=constrain(y+vy,0,height-h);
-    this.y = this.y + this.vy;
-
-    // shooting
-    if (keyShoot ) {
-      this.cooldown = this.cooldownTime;
-      if (this.facingRight) {
-        bulletBlueImage = bulletBlue;
-        playerBlueImage = playerBlueShoot;
-        bullets.add(new Bullet(this.x + 18, this.y -7, 20, 0, 15));
-      }
-      else {
-        bulletBlueImage = bulletBlueLeft;
-        playerBlueImage = playerBlueShootFacingLeft;
-        bullets.add(new Bullet(this.x - 18, this.y -7, -20, 0, 15));
-      }
-    } 
   }
+  
+  
+  void updateImage(){
+     if (vy == 1 && !shooting) {
+      // idle
+      if (facingRight) {
+        if(id == 1){
+          image(BlueidleRight, x, y, w, h);
+        }else{
+          image(RedidleRight, x, y, w, h);
+        }
+      } else {
+        if(id == 1){
+          image(BlueidleLeft, x, y, w, h);
+        }else{
+          image(RedidleLeft, x, y, w, h);
+        }
+      }
+    } else if (moveSpeed != 0 && vy == 1 && !shooting) {
+      // run
+      if (facingRight) {
+        if(id == 1){
+          image(BluerunRight, x, y, w, h);
+        }else{
+          image(RedrunRight, x, y, w, h);
+        }
+      } else {
+        if(id == 1){
+          image(BluerunLeft, x, y, w, h);
+        }else{
+          image(RedrunLeft, x, y, w, h);
+        }
+      }
+    } else if (vy != 1 && !shooting) {
+      // jump
+      if (facingRight) {
+        if(id == 1){
+          image(BluejumpRight, x, y, w, h);
+        }else{
+          image(RedjumpRight, x, y, w, h);
+        }
+      } else {
+        if(id == 1){
+          image(BluejumpLeft, x, y, w, h);
+        }else{
+          image(RedjumpLeft, x, y, w, h);
+        }
+      }
+    } else if (shooting) {
+      // shooting
+      shooting = false;
+      if (facingRight) {
+        if(id == 1){
+          image(BlueshootRight, x, y, w, h);
+        }else{
+          image(RedshootRight, x, y, w, h);
+        }
+      } else {
+        if(id == 1){
+          image(BlueshootLeft, x, y, w, h);
+        }else{
+          image(RedshootLeft, x, y, w, h);
+        }
+      }
+    }
+  }
+  
+  
 }
+
+  
+
+  
+
+  
