@@ -6,6 +6,9 @@ PImage deadFloor;
 Player player1;
 Player player2;
 
+String player1Keys = "Player 1: Blue "; // Control keys for player 1
+String player2Keys = "Player 2: Red "; 
+boolean gameStarted = false;
 boolean gameOver = false;
 int winner;
 
@@ -19,7 +22,7 @@ Platform platform6;
 Platform platform11;
 
 ArrayList<Platform> platforms;
-float platformProduceInterval = 1500; // milliseconds
+float platformProduceInterval = 2000; // milliseconds
 float lastPlatformProduceTime = 0; // milliseconds
 
 Gif BlueidleRight, RedidleRight;
@@ -36,7 +39,8 @@ PImage bulletBlueLeft;
 
 PImage bulletRed;
 PImage bulletRedLeft;
-
+PImage backgroundImage;
+//color tint = color(255, 255, 255, 100);
 void setup(){
   size(800, 500);
   platforms = new ArrayList<Platform>();
@@ -47,33 +51,71 @@ void setup(){
   bulletBlueLeft = loadImage("bulletBlueLeft.png");
   bulletRed = loadImage("bulletRed.png");
   bulletRedLeft = loadImage("bulletRedLeft.png");
-  
+  backgroundImage = loadImage("background.jpg");
   uploadGif();
   initialPlatform();
   player1 = new Player(30, height - 500, true, 1);
   player2 = new Player(width-30, height - 500, false, 2);
   
-  
 }
 
 void draw(){
-  background(255);
-  isGameOver();
-  produceDeadFloor();
-  producePlatforms();
-  updatePlatforms();
-  //platform11.display();
-  //updatePlatforms();
-  isShooted();
-  player1.update();
-  player1.collide(platforms);
-  player1.updateImage();
-  player2.update();
-  player2.collide(platforms);
-  player2.updateImage();
+  //tint(tint);
+  image(backgroundImage, 0, 0, width, height);
+  if (!gameStarted){
+    notStart();
+  }else{
+    isGameOver();
+    produceDeadFloor();
+    producePlatforms();
+    updatePlatforms();
+    //platform11.display();
+    //updatePlatforms();
+    isShooted();
+    player1.update();
+    player1.collide(platforms);
+    player1.updateImage();
+    player2.update();
+    player2.collide(platforms);
+    player2.updateImage();
 
+  }
+  
   //isGameOver();
  
+}
+
+void notStart(){
+    rectMode(CENTER);
+    textSize(25);
+    fill(255,0,0);
+    rect(width/2, height/2 - 100, 250, 70, 10);
+    fill(0);
+    text("START GAME", width/2- 60, height/2 - 90);
+    
+    
+    
+    // Display control keys
+    fill(220);
+    rect(width/2, height/2 + 70, 400, 200, 10);
+    textSize(22);
+    
+    textSize(22);
+    fill(1);
+    text("Control Keys", width/2- 50, height/2);
+    fill(0, 0, 255);
+    text(player1Keys, 250, height/2 + 50);
+    text("left: 'a'",250, height/2 + 75);
+    text("right: 'd'", 250, height/2 + 100);
+    text("jump: 'w'", 250, height/2 + 125);
+    text("shoot: 'z'", 250, height/2 + 150);
+    fill(255, 0, 0);
+    textSize(22);
+    text(player2Keys, width-350, height/2 + 50);
+    text("left: 'j'", width-350, height/2 + 75);
+    text("right: 'l'", width-350, height/2 + 100);
+    text("jump: 'i'", width-350, height/2 + 125);
+    text("shoot: '.'", width-350, height/2 + 150);
 }
 
 
@@ -132,7 +174,7 @@ void isGameOver(){
     // Draw Restart button
     stroke(255);
     fill(0);
-    rect(width/2 - 50, height/2 + 50, 100, 50);
+    rect(width/2, height/2 + 75, 100, 50);
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(16);
@@ -156,6 +198,17 @@ void resetGame() {
 void mousePressed() {
   if (gameOver && mouseX > width/2 - 50 && mouseX < width/2 + 50 && mouseY > height/2 + 50 && mouseY < height/2 + 100) {
     resetGame();
+  }
+}
+
+//rect(width/2, height/2 - 100, 250, 70, 10);
+//    fill(0);
+//    text("START GAME", width/2- 50, height/2 - 100);
+    
+void mouseClicked() {
+  if (!gameStarted && mouseX > width/2 - 175 && mouseX < width/2 + 170 && mouseY > height/2 -100 - 35 && mouseY < height/2 - 100 + 35) {
+    // Start game button clicked
+    gameStarted = true;
   }
 }
 
