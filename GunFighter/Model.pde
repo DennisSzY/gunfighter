@@ -8,7 +8,7 @@ public class Model {
     Player playerRed; //id = 2
     
     boolean gameStarted;
-    // boolean gameOver;
+    boolean gameOver;
     int winner;//1:blue 2:red
     
     Model() {
@@ -60,17 +60,14 @@ public class Model {
         playerShooted.display();
     }
     
-    boolean isGameOver() {
+   void isGameOver() {
         if (playerBlue.y + playerBlue.h >= height - 35) {
-            // gameOver = true;
+            gameOver = true;
             winner = 2;
-            return true;
         } else if (playerRed.y + playerRed.h >= height - 35) {
-            // gameOver = true;
+            gameOver = true;
             winner = 1;
-            return true;
         }
-        return false;
     }
     
     void resetGame() {
@@ -95,8 +92,8 @@ public class Model {
         playerRed = new Player(width - 30, height - 500, false, 2);
         playerBlue.setOpkeys('a', 'd', 'w', 'z');
         playerRed.setOpkeys('j', 'l', 'i', '.');
-        boolean gameStarted = false;
-        // boolean gameOver = false;
+        gameStarted = false;
+        gameOver = false;
     } 
     
 }

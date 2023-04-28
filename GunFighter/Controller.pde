@@ -29,8 +29,8 @@ void mouseClicked() {
         model.gameStarted = true;
     }
     
-    if (model.isGameOver() && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
-        // controller.resetGame();
+    if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
+        model.resetGame();
     }
 }
 

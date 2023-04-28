@@ -16,12 +16,13 @@ void draw() {
     if (!model.gameStarted) {
         notStart();
     } else{
-        if (!model.isGameOver()) {
+        if (!model.gameOver) {
             model.produceDeadFloor();
             model.producePlatforms();
             model.updatePlatforms();
             model.updatePlayer(model.playerBlue, model.platforms, model.playerRed);
             model.updatePlayer(model.playerRed, model.platforms, model.playerBlue);
+            model.isGameOver();
         }
         else{
             gameOverPage();
