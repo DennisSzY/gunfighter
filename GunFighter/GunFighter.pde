@@ -1,7 +1,5 @@
 import gifAnimation.*;
 
-String player1Keys = "Player 1: Blue "; // Control keys for player 1
-String player2Keys = "Player 2: Red "; 
 
 Model model;
 
@@ -12,6 +10,7 @@ void setup() {
 }
 
 void draw() {
+
     image(backgroundImage, 0, 0, width, height);
     if (!model.gameStarted) {
         notStart();

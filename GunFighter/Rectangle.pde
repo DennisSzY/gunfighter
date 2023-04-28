@@ -12,7 +12,7 @@ class Rectangle extends Shape{
    }else{
      noFill();
    }
-   rect(x, y, w, h);
+   rect(x, y, w, h, radii);
    if(hasText){
      fill(textFill);
       textSize(textSize);

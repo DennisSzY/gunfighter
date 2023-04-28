@@ -136,7 +136,7 @@ public class Player {
     }  
     
     void collideWithBullet(ArrayList<Bullet> firedBullets) {
-        boolean flag = false;
+        //boolean flag = false;
         for (int i = 0; i < firedBullets.size(); i++) {
             Bullet bullet = firedBullets.get(i);
             if (bullet.moveSpeed > 0) {
