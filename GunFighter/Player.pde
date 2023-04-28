@@ -1,11 +1,7 @@
 public class Player {
-  View view = new View();
+    
     //默认y向下为正，向右为正...
-    private float x, y; //position,按照图片的右上角算起
-    public void setPosition(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
+    float x, y; //position,按照图片的右上角算起
     
     final float w = 50; //width
     final float h = 50; //height
@@ -25,9 +21,8 @@ public class Player {
     //射击状态
     boolean isShooting;
     boolean isShooted;
-    //生命值
+    //
     int id;
-    int heart = 100; //默认100点生命值
     //子弹数量,表示该玩家已经打出去的子弹数量
     ArrayList<Bullet> firedBullets = new ArrayList<>();
     float bulletProduceInterval = 400; // milliseconds
@@ -58,7 +53,7 @@ public class Player {
             if (bullet.x >= width || bullet.x <= 0) {
                 firedBullets.remove(i); 
             }
-            bullet.display(view, this);
+            bullet.display(this);
         }
     }
     
@@ -163,13 +158,13 @@ public class Player {
             Bullet bullet = firedBullets.get(i);
             if (bullet.moveSpeed > 0) {
                 if (y + h >= bullet.y + bullet.h && y <= bullet.y && x <= bullet.x + bullet.w) {
-                   // harmValue -= bullet.harmValue;
-                    x += 70;//击退的值，暂定70
+                    // harmValue -= bullet.harmValue;
+                    x += 70;//击退的值，暂定70//
                     firedBullets.remove(i);
                 }
             } else{
                 if (y + h >= bullet.y + bullet.h && y <= bullet.y && x + w >= bullet.x) {
-                   // harmValue -= bullet.harmValue;
+                    // harmValue -= bullet.harmValue;
                     x -= 70; //击退
                     firedBullets.remove(i);
                 }
@@ -179,28 +174,28 @@ public class Player {
     }
     
     
-    void display(View view) {
+    void display() {
         //非射击状态
         if (!isShooting && facingRight) {
             //jump
             if (!onPlatform) {
                 switch(id) {
-                    case 1 : image(view.blueJumpRight,x, y, w, h); break;
-                    case 2 : image(view.redJumpRight, x, y, w, h); break;
+                    case 1 : image(blueJumpRight,x, y, w, h); break;
+                    case 2 : image(redJumpRight, x, y, w, h); break;
                 }
             }
             //run
             if (moveSpeed!= 0) {
                 switch(id) {
-                    case 1 : image(view.blueRunRight,x, y, w, h); break;
-                    case 2 : image(view.redIdleRight, x, y, w, h); break;
+                    case 1 : image(blueRunRight,x, y, w, h); break;
+                    case 2 : image(redIdleRight, x, y, w, h); break;
                 }
             }
             // idle 
             else{  
                 switch(id) {
-                    case 1 : image(view.blueIdleRight,x, y, w, h); break;
-                    case 2 : image(view.redIdleRight, x, y, w, h); break;
+                    case 1 : image(blueIdleRight,x, y, w, h); break;
+                    case 2 : image(redIdleRight, x, y, w, h); break;
                 }
             }
         } 
@@ -208,22 +203,22 @@ public class Player {
             //jump
             if (!onPlatform) {
                 switch(id) {
-                    case 1 : image(view.blueJumpLeft,x, y, w, h); break;
-                    case 2 : image(view.redJumpLeft, x, y, w, h); break;
+                    case 1 : image(blueJumpLeft,x, y, w, h); break;
+                    case 2 : image(redJumpLeft, x, y, w, h); break;
                 }
             }
             // run
             else if (moveSpeed!= 0) {
                 switch(id) {
-                    case 1 : image(view.blueRunLeft,x, y, w, h); break;
-                    case 2 : image(view.redIdleLeft, x, y, w, h); break;
+                    case 1 : image(blueRunLeft,x, y, w, h); break;
+                    case 2 : image(redIdleLeft, x, y, w, h); break;
                 }
             } 
             // idle
             else{ 
                 switch(id) {
-                    case 1 : image(view.blueIdleLeft,x, y, w, h); break;
-                    case 2 : image(view.redIdleLeft, x, y, w, h); break;
+                    case 1 : image(blueIdleLeft,x, y, w, h); break;
+                    case 2 : image(redIdleLeft, x, y, w, h); break;
                 }
             }
             
@@ -232,14 +227,14 @@ public class Player {
         else if (isShooting) {
             if (facingRight) {
                 switch(id) {
-                    case 1 : image(view.blueShootRight,x, y, w, h); break;
-                    case 2 : image(view.redShootRight, x, y, w, h); break;
+                    case 1 : image(blueShootRight,x, y, w, h); break;
+                    case 2 : image(redShootRight, x, y, w, h); break;
                 }
             } 
             else{
                 switch(id) {
-                    case 1 : image(view.blueShootLeft,x, y, w, h); break;
-                    case 2 : image(view.redShootLeft, x, y, w, h); break;
+                    case 1 : image(blueShootLeft,x, y, w, h); break;
+                    case 2 : image(redShootLeft, x, y, w, h); break;
                 }
             }
         }

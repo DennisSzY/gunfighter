@@ -3,7 +3,7 @@ class Bullet {
     float moveSpeed = 4;
     float h = 8;
     float w = 40;
-    int harmValue = 2; //伤害值
+    // int harmValue = 2; //伤害值
     PImage image;
     
     //初始化初始位置+初始速度，速度是定值，这里主要是为了给定方向
@@ -19,16 +19,16 @@ class Bullet {
     }
     
     //子弹的显示
-    void display(View view, Player player) {
+    void display(Player player) {
         if (moveSpeed > 0) {
             switch(player.id) {
-                case 1 : image = view.bulletBlueRight;break;
-                case 2 : image = view.bulletRedRight;break;
+                case 1 : image = bulletBlueRight;break;
+                case 2 : image = bulletRedRight;break;
             }
         } else{
             switch(player.id) {
-                case 1 : image = view.bulletBlueLeft;break;
-                case 2 : image = view.bulletRedLeft;break;
+                case 1 : image = bulletBlueLeft;break;
+                case 2 : image = bulletRedLeft;break;
             }
         }
         image(this.image, this.x, this.y, this.w, this.h);
