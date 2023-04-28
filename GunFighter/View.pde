@@ -45,9 +45,9 @@ void uploadPic() {
     redIdleRight.loop();
     redIdleLeft = new Gif (this, "playerRedFacingLeft.gif");
     redIdleLeft.loop();
-    redRunRight = new Gif (this, "playerRedMoveLeft.gif");
+    redRunRight = new Gif (this, "playerRedMoveRight.gif");
     redRunRight.loop();
-    redRunLeft = new Gif (this, "playerRedMoveRight.gif");
+    redRunLeft = new Gif (this, "playerRedMoveLeft.gif");
     redRunLeft.loop();
     redJumpRight = new Gif (this, "playerRedJump.gif");
     redJumpRight.loop();

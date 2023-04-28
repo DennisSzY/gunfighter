@@ -49,12 +49,13 @@ public class Model {
     
     void updatePlayer(Player playerShooted, ArrayList<Platform> platforms, Player playerShooting) {
         playerShooted.update();
+        
         //静止状态下随平台移动
         if (playerShooted.onPlatform) {
             playerShooted.fallSpeed = platforms.get(0).moveSpeed;
             playerShooted.y += playerShooted.fallSpeed;
         }
-        playerShooted.collideWithPlatform(platforms);
+        playerShooted.landOnPlatform(platforms);
         playerShooted.collideWithBullet(playerShooting.firedBullets);
         playerShooted.display();
     }

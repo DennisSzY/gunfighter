@@ -104,30 +104,35 @@ public class Player {
     }
     
     
-    void collideWithPlatform(ArrayList<Platform> platforms) {
+    void landOnPlatform(ArrayList<Platform> platforms) {
         for (int i = 0; i < platforms.size(); i++) {
             Platform platform = platforms.get(i);
             //设计当人物只要有一点在平台上时，就算是在平台上,//添加十个像素，按照脚是否越界来算
-            collide(platform.x, platform.y, platform.w, platform.h);
+            if(collide(platform.x, platform.y, platform.w, platform.h, platform.moveSpeed)){
+                return;
+            }
         }
+        onPlatform = false;
     }  
     
-    void collide(float platformX, float platformY, float platformWidth, float platformHeight) { 
+    boolean collide(float platformX, float platformY, float platformWidth, float platformHeight, float platformSpeed) { 
         if (y + h >= platformY && y < platformY + platformHeight && x + w - 10 > platformX && x + 10 < platformX + platformWidth) { //这一帧会相撞
-            if (fallSpeed > 0) { // while falling
+            if (fallSpeed >= platformSpeed) { // while falling
                 if (y + h - platformY <= fallSpeed) {
                     //println("landing");
                     y = platformY - h;
                     fallSpeed = 0;
                     onPlatform = true;
+                    return true;
                     //更新人物状态图像
                     // switch(id){
                     // case 1 : image = playerBlueDefault;
                     // case 2 : image = playerRedDefault;
                 //}
                 } 
-            } 
+            }
         }
+        return false;
     }  
     
     void collideWithBullet(ArrayList<Bullet> firedBullets) {
@@ -163,10 +168,10 @@ public class Player {
                 }
             }
             //run
-            if (moveSpeed!= 0) {
+            else if (moveSpeed!= 0) {
                 switch(id) {
                     case 1 : image(blueRunRight,x, y, w, h); break;
-                    case 2 : image(redIdleRight, x, y, w, h); break;
+                    case 2 : image(redRunRight, x, y, w, h); break;
                 }
             }
             // idle 
@@ -189,7 +194,7 @@ public class Player {
             else if (moveSpeed!= 0) {
                 switch(id) {
                     case 1 : image(blueRunLeft,x, y, w, h); break;
-                    case 2 : image(redIdleLeft, x, y, w, h); break;
+                    case 2 : image(redRunLeft, x, y, w, h); break;
                 }
             } 
             // idle
