@@ -85,7 +85,6 @@ public void gameOverPage() {
 }
 
 public void homePage() {
-    
     rectMode(CENTER);
     textSize(25);
     fill(255,0,0);
