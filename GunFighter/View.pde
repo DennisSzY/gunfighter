@@ -71,6 +71,7 @@ public void gameOverPage() {
 }
 
 public void homePage() {
+  noStroke();
   fill(0, 0, 0, 100);
   rect(0, 0, width, height);
   textAlign(LEFT, TOP);

@@ -4,8 +4,8 @@ class Platform {
     private float moveSpeed; //move speed,1 by default.方向向下
     private PImage image; //platform的显示图像
     
-    Platform(float x, float y, float w, float h, PImage image) {
-        moveSpeed = 1; 
+    Platform(float x, float y, float w, float h, PImage image, float moveSpeed) {
+        this.moveSpeed = moveSpeed; 
         this.x = x;
         this.y = y;
         this.w = w;
@@ -14,7 +14,6 @@ class Platform {
     }
     
     void display() {
-        //imageMode(CORNER);
         image(this.image, this.x, this.y, this.w, this.h);
     }
     

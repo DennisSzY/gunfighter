@@ -10,7 +10,7 @@ void setup() {
 }
 
 void draw() {
-
+    //println(model.platformFallSpeed);
     image(backgroundImage, 0, 0, width, height);
     if (!model.gameStarted) {
         notStart();
