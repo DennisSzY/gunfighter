@@ -14,7 +14,7 @@ class Platform {
     }
     
     void display() {
-        imageMode(CORNER);
+        //imageMode(CORNER);
         image(this.image, this.x, this.y, this.w, this.h);
     }
     

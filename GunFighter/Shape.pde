@@ -8,6 +8,7 @@ abstract class Shape{
   int textX, textY;
   boolean hasFill = false;
   boolean hasText = false;
+  int radii = 0;
 
   void setFillColors(int Tricolor1, int Tricolor2, int Tricolor3){
     this.Tricolor1 = Tricolor1;
@@ -27,6 +28,10 @@ abstract class Shape{
     this.textX = textX;
     this.textY = textY;
     this.hasText = true;
+  }
+  
+  void setRad(int rad){
+    this.radii = rad;
   }
   
   abstract void display();
