@@ -8,6 +8,9 @@ Gif blueJumpRight, redJumpRight;
 Gif blueJumpLeft, redJumpLeft;
 Gif blueShootRight, redShootRight;
 Gif blueShootLeft, redShootLeft;
+Gif playerBlue, playerRed;
+Gif playerBlueShooted, playerRedShooted;
+Gif playerBlueShootedLeft, playerRedShootedLeft;
 PImage bulletBlueRight;
 PImage bulletBlueLeft;
 PImage bulletRedRight;
@@ -29,6 +32,21 @@ void uploadPic() {
     bulletRedRight = loadImage("bulletRedRight.png");
     bulletRedLeft = loadImage("bulletRedLeft.png");
     backgroundImage = loadImage("background.jpg");
+
+    playerBlue = new Gif (this, "playerBlue.gif");
+    playerBlue.loop();
+    playerRed = new Gif (this, "playerRed.gif");
+    playerRed.loop();
+    
+    playerBlueShooted = new Gif (this, "playerBlueShooted.gif");
+    playerBlueShooted.loop();
+    playerRedShooted = new Gif (this, "playerRedShooted.gif");
+    playerRedShooted.loop();
+
+    playerBlueShootedLeft = new Gif (this, "playerBlueShootedLeft.gif");
+    playerBlueShootedLeft.loop();
+    playerRedShootedLeft = new Gif (this, "playerRedShootedLeft.gif");
+    playerRedShootedLeft.loop();
     
     blueIdleRight = new Gif (this, "playerBlueDefault.gif");
     blueIdleRight.loop();
@@ -71,6 +89,7 @@ public void gameOverPage() {
 }
 
 public void homePage() {
+  noStroke();
   fill(0, 0, 0, 100);
   rect(0, 0, width, height);
   textAlign(LEFT, TOP);
@@ -103,8 +122,8 @@ public void homePage() {
   redButton(389, 523, 60, 60, "J");
   redButton(467, 523, 60, 60, "L");
 
-  roleDisplay(235,290, 110,110, blueIdleRight);
-  roleDisplay(235,473, 110,110, redIdleRight);
+  roleDisplay(235,290, 110,110, playerBlue);
+  roleDisplay(235,473, 110,110, playerRed);
   
   easy = new Rectangle(595, 262, 93, 55);
   easy.setFillColors(236, 138, 161);
@@ -132,7 +151,7 @@ public void homePage() {
   play.setRad(28);
   play.display();
   
-  PImage playPig = loadImage("play.jpg");
+  PImage playPig = loadImage("play.png");
   image(playPig, 996, 391, 44, 51);
   
   stroke(199, 64, 102, 255);
@@ -145,7 +164,7 @@ void roleDisplay(int x, int y, int w, int h, Gif imageName){
     fill(255, 255, 255, 150);
     rect(x-10, y-10, w+20, h+20);
     rect(x, y, w, h);
-    image(imageName, x, y, w, h);
+    image(imageName, x, y+10, w, h-20);
 }
 
 void blueButton(int x, int y, int w, int h, String textContent){

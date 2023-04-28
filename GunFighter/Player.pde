@@ -46,50 +46,68 @@ public class Player {
     }
     
     
-    
+    int distance = 0;
     void update() {
-        if (pressLeftKey && !pressRightKey) {
-            moveSpeed += -acc; //update speed
-            if (moveSpeed <= -maxMoveSpeed) {moveSpeed = -maxMoveSpeed;} //限制最大速度
-            //update position
-            if (x + moveSpeed < 0) { x = 0;} //走出屏幕边界了....
-            else{ x += moveSpeed;}
-            facingRight = false; //update facing direction
-        } 
-        else if (pressRightKey && !pressLeftKey) {
-            moveSpeed += acc;
-            if (moveSpeed >= maxMoveSpeed) { moveSpeed = maxMoveSpeed;}
-            //走出屏幕边界了....
-            if (x + w + moveSpeed >= width) { x = width - w;} 
-            else{ x += moveSpeed; }
-            facingRight = true;
-        }
-        
-        if (pressUpKey && onPlatform) {
-            fallSpeed = -18; //给一个初始的向上跳的速度
-            onPlatform = false;
-        } else if (!onPlatform) {
-            fallSpeed += gravity;
-            if (fallSpeed >= maxFallspeed) {fallSpeed = maxFallspeed;}
-            y += fallSpeed;
-        }
-        
-        if (pressShootKey) {
-            isShooting = true;
-            Bullet bullet;
-            int right = 1;
-            int left = -1;
-            if (millis() - lastBulletProduceTime > bulletProduceInterval) {
-                if (facingRight) {
-                    bullet = new Bullet(this.x + this.w / 2, this.y + 10, right); //这个数值是根据视觉效果在枪口处来调整的
-                } else{
-                    bullet = new Bullet(this.x + this.w / 2, this.y + 10, left);
+        if(isShooted){
+            if(facingRight){
+                x -= 20;
+                distance += 20;
+                if (distance == 60) {
+                    isShooted = false;
+                    distance = 0;
                 }
-                firedBullets.add(bullet);
-                lastBulletProduceTime = millis();
+            }else{ 
+                x += 20;
+                distance += 20;
+                if (distance == 60) {
+                    isShooted = false;
+                    distance = 0;
+                }
             }
+        }else{
+            if (pressLeftKey && !pressRightKey) {
+                moveSpeed += -acc; //update speed
+                if (moveSpeed <= -maxMoveSpeed) {moveSpeed = -maxMoveSpeed;} //限制最大速度
+                //update position
+                if (x + moveSpeed < 0) { x = 0;} //走出屏幕边界了....
+                else{ x += moveSpeed;}
+                facingRight = false; //update facing direction
+            } 
+            else if (pressRightKey && !pressLeftKey) {
+                moveSpeed += acc;
+                if (moveSpeed >= maxMoveSpeed) { moveSpeed = maxMoveSpeed;}
+                //走出屏幕边界了....
+                if (x + w + moveSpeed >= width) { x = width - w;} 
+                else{ x += moveSpeed; }
+                facingRight = true;
+            }
+            
+            if (pressUpKey && onPlatform) {
+                fallSpeed = -18; //给一个初始的向上跳的速度
+                onPlatform = false;
+            } else if (!onPlatform) {
+                fallSpeed += gravity;
+                if (fallSpeed >= maxFallspeed) {fallSpeed = maxFallspeed;}
+                y += fallSpeed;
+            }
+            
+            if (pressShootKey) {
+                isShooting = true;
+                Bullet bullet;
+                int right = 1;
+                int left = -1;
+                if (millis() - lastBulletProduceTime > bulletProduceInterval) {
+                    if (facingRight) {
+                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, right); //这个数值是根据视觉效果在枪口处来调整的
+                    } else{
+                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, left);
+                    }
+                    firedBullets.add(bullet);
+                    lastBulletProduceTime = millis();
+                }
+            }
+            firedBulletsUpdate();
         }
-        firedBulletsUpdate();
     }
     
     void firedBulletsUpdate() {
@@ -141,14 +159,18 @@ public class Player {
             Bullet bullet = firedBullets.get(i);
             if (bullet.moveSpeed > 0) {
                 if (y + h >= bullet.y + bullet.h && y <= bullet.y && x <= bullet.x + bullet.w) {
-                    // harmValue -= bullet.harmValue;
-                    x += 70;//击退的值，暂定70//
+                    isShooted = true;
+                    facingRight = false;
+                    // x += 70;//向右击退,脸朝左，暂定70//
+
+                    //加载向左的击退图像
                     firedBullets.remove(i);
                 }
             } else{
                 if (y + h >= bullet.y + bullet.h && y <= bullet.y && x + w >= bullet.x) {
-                    // harmValue -= bullet.harmValue;
-                    x -= 70; //击退
+                    isShooted = true;
+                    facingRight = true;
+                    // x -= 70; //向左击退
                     firedBullets.remove(i);
                 }
             }
@@ -158,8 +180,22 @@ public class Player {
     
     
     void display() {
+        //被击中状态
+        if (isShooted) {
+            if (facingRight) {
+                switch(id) {
+                    case 1 : image(playerBlueShooted, x, y, w, h); break;
+                    case 2 : image(playerRedShooted, x, y, w, h); break;
+                }
+            } else{
+                switch(id) {
+                    case 1 : image(playerBlueShootedLeft, x, y, w, h); break;
+                    case 2 : image(playerRedShootedLeft, x, y, w, h); break;
+                }
+            }
+        }
         //非射击状态
-        if (!isShooting && facingRight) {
+        else if (!isShooting && facingRight) {
             //jump
             if (!onPlatform) {
                 switch(id) {
