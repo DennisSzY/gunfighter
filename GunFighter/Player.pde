@@ -11,8 +11,8 @@ public class Player {
     final float maxMoveSpeed = 10;  //水平速度最大值, 是绝对值，使用的时候需要乘以方向系数...
     final float acc = 5; //horizontal acc，水平加速度 ，是绝对值，使用的时候需要乘以方向系数...
     float fallSpeed = 0;
-    final float maxFallspeed = 8;
-    final float gravity = 2;//vertical acc
+    final float maxFallspeed = 20;
+    final float gravity = 3;//vertical acc
     
     //player的状态信息
     //-位置信息
@@ -83,7 +83,7 @@ public class Player {
             }
             
             if (pressUpKey && onPlatform) {
-                fallSpeed = -18; //给一个初始的向上跳的速度
+                fallSpeed = -45; //给一个初始的向上跳的速度
                 onPlatform = false;
             } else if (!onPlatform) {
                 fallSpeed += gravity;
@@ -139,7 +139,7 @@ public class Player {
                 if (y + h - platformY <= fallSpeed) {
                     //println("landing");
                     y = platformY - h;
-                    fallSpeed = 0;
+                    fallSpeed = platformSpeed;
                     onPlatform = true;
                     return true;
                     //更新人物状态图像
