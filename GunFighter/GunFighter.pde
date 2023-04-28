@@ -32,24 +32,3 @@ void draw() {
 void notStart() {
     homePage();
 }
-
-
-//reset game
-//push the reset game
-void mousePressed() {
-    if (model.isGameOver() && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
-        // controller.resetGame();
-    }
-}
-
-
-//rect(width / 2, height / 2 - 100, 250, 70, 10);
-//    fill(0);
-//    text("START GAME", width / 2 - 50, height / 2 - 100);
-
-void mouseClicked() {
-    if (!model.gameStarted && mouseX > width / 2 - 175 && mouseX < width / 2 + 170 && mouseY > height / 2 - 100 - 35 && mouseY < height / 2 - 100 + 35) {
-        // Start game button clicked
-        model.gameStarted = true;
-    }
-}

@@ -75,7 +75,7 @@ public class Model {
     void resetGame() {
         // Reset all variables and objects to their initial state
         platforms = new ArrayList<Platform>();
-        platformProduceInterval = 2000;
+        platformProduceInterval = 8000;
         lastPlatformProduceTime = 0;
         Platform platform1 = new Platform(0, height / 1.5, width / 4, 20, floor);
         Platform platform2 = new Platform(width / 4 * 3, height / 1.5, width / 4, 25, floor);
