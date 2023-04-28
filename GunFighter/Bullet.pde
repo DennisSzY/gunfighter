@@ -1,40 +1,37 @@
 class Bullet {
-  float x,y;
-  float vx = 0;
-  float vy = 1.1;
-  float h = 8;
-  float w = 40;
-  int id; //blue / red
-  //float g = 0.7;
-  //float lifetime;
-
-  Bullet(float x, float y, float vx, int id) {
-    this.x = x;
-    this.y = y;
-    this.vx = vx;
-    this.id = id;
-    //this.lifetime = lifetime;
-  }
-
-
-  void update() {
-    this.x = this.x+this.vx;
-    this.y = this.y+this.vy;
-  }
-
- void display() {
-    if(vx > 0){
-      if(id == 1){
-          image(bulletBlue, x, y, w, h);
-        }else{
-          image(bulletRed, x, y, w, h);
-        }
-    }else{
-      if(id == 1){
-          image(bulletBlueLeft, x, y, w, h);
-        }else{
-          image(bulletRedLeft, x, y, w, h);
-        }
+    float x, y;
+    float moveSpeed = 4;
+    float h = 8;
+    float w = 40;
+    int harmValue = 2; //伤害值
+    PImage image;
+    
+    //初始化初始位置+初始速度，速度是定值，这里主要是为了给定方向
+    Bullet(float x, float y, int directionValue) {
+        this.x = x;
+        this.y = y;
+        this.moveSpeed = directionValue * this.moveSpeed;
     }
-  }
+    
+    //子弹的位置更新
+    void update() {
+        this.x = this.x + this.moveSpeed;
+    }
+    
+    //子弹的显示
+    void display(View view, Player player) {
+        if (moveSpeed > 0) {
+            switch(player.id) {
+                case 1 : image = view.bulletBlueRight;break;
+                case 2 : image = view.bulletRedRight;break;
+            }
+        } else{
+            switch(player.id) {
+                case 1 : image = view.bulletBlueLeft;break;
+                case 2 : image = view.bulletRedLeft;break;
+            }
+        }
+        image(this.image, this.x, this.y, this.w, this.h);
+    }
+    
 }

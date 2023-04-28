@@ -1,187 +1,248 @@
-class Player {
-  float x, y; //position
-  float w = 50; //width
-  float h = 50; //height
-  float vx = 5; //horizontal acc
-  float moveSpeed = 0; //horizontal velocity
-  float fallspeed = 4;
-  float gravity = 0.5;
-  float vy = 0;
-  boolean onplatform = false;
-  boolean facingRight;
-  boolean shooting = false;
-  Boolean keyLeft = false, keyRight = false, keyDown = false, keyUp = false, keyShoot = false;
-  int id;
-  ArrayList<Bullet> bullets = new ArrayList<>();
-  
-  float bulletProduceInterval = 400; // milliseconds
-  float lastBulletProduceTime = 0; // milliseconds
-  
-  Player(float x, float y, boolean facingRight, int id){
-    this.x = x;
-    this.y = y;
-    this.facingRight = facingRight;
-    this.id = id;
-  }
-  
-  
-  void update(){
-    if(keyLeft && !keyRight){
-      moveSpeed = -vx;
-      if(x + moveSpeed < 0){
-        this.x = 0;
-      }else{
-        this.x += moveSpeed;
-      }
-      facingRight = false;
-    }else if(keyRight && !keyLeft){
-      moveSpeed = vx;
-      if(x + w + moveSpeed >= width){
-        this.x = width - w;
-      }else{
-        this.x += moveSpeed;
-      }
-      facingRight = true;
+public class Player {
+  View view = new View();
+    //默认y向下为正，向右为正...
+    private float x, y; //position,按照图片的右上角算起
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
     
-    if(keyUp && onplatform){
-      this.vy = -14;
-      this.onplatform = false;
+    final float w = 50; //width
+    final float h = 50; //height
+    
+    //player 的速度信息
+    float moveSpeed = 0; //horizontal velocity,朝右为正，朝左为负
+    final float maxMoveSpeed = 5;  //水平速度最大值, 是绝对值，使用的时候需要乘以方向系数...
+    final float acc = 5; //horizontal acc，水平加速度 ，是绝对值，使用的时候需要乘以方向系数...
+    float fallSpeed = 0;
+    final float maxFallspeed = 4;
+    final float gravity = 0.9;//vertical acc
+    
+    //player的状态信息
+    //-位置信息
+    boolean onPlatform;
+    boolean facingRight;
+    //射击状态
+    boolean isShooting;
+    boolean isShooted;
+    //生命值
+    int id;
+    int heart = 100; //默认100点生命值
+    //子弹数量,表示该玩家已经打出去的子弹数量
+    ArrayList<Bullet> firedBullets = new ArrayList<>();
+    float bulletProduceInterval = 400; // milliseconds
+    float lastBulletProduceTime = 0; // milliseconds
+    //player的操作键位
+    String leftKey,rightKey,upKey,shootKey;
+    public void setOpkeys(String leftKey, String RightKey, String upKey, String shootKey) {
+        this.leftKey = leftKey;
+        this.rightKey = rightKey;
+        this.upKey = upKey;
+        this.shootKey = shootKey;
+    }
+    Boolean pressLeftKey = false, pressRightKey = false, pressUpKey = false, pressShootKey = false;
+    
+    //构造函数
+    Player(float x, float y, boolean facingRight, int id) {
+        this.x = x;
+        this.y = y;
+        this.facingRight = facingRight;
+        this.id = id;
     }
     
-    if(!onplatform){
-      //collide(platforms);
-      this.vy += gravity;
-      if(this.vy >= 0){
-        this.vy = fallspeed;
-      }
-      this.y += this.vy;
-    }else{
-      this.vy = 1;
-      this.y += this.vy;
+    
+    void firedBulletsUpdate() {
+        for (int i = firedBullets.size() - 1; i >= 0; i--) {
+            Bullet bullet = firedBullets.get(i);
+            bullet.update();
+            if (bullet.x >= width || bullet.x <= 0) {
+                firedBullets.remove(i); 
+            }
+            bullet.display(view, this);
+        }
     }
     
-    if(keyShoot){
-      shooting = true;
-      Bullet bullet;
-      
-      if(bullets.size() <= 8 && millis() - lastBulletProduceTime > bulletProduceInterval){
-        if(facingRight){
-          bullet = new Bullet(this.x + this.w/2, this.y + 10, 4, this.id);
-        }else{
-          bullet = new Bullet(this.x + this.w/2, this.y + 10, -4, this.id);
+    void update() {
+        if (pressLeftKey && !pressRightKey) {
+            moveSpeed += -acc; //update speed
+            if (moveSpeed <= -maxMoveSpeed) {moveSpeed = -maxMoveSpeed;} //限制最大速度
+            //update position
+            if (x + moveSpeed < 0) { x = 0;} //走出屏幕边界了....
+            else{ x += moveSpeed;}
+            facingRight = false; //update facing direction
+        } 
+        else if (pressRightKey && !pressLeftKey) {
+            moveSpeed += acc;
+            if (moveSpeed >= maxMoveSpeed) { moveSpeed = maxMoveSpeed;}
+            //走出屏幕边界了....
+            if (x + w + moveSpeed >= width) { x = width - w;} 
+            else{ x += moveSpeed; }
+            facingRight = true;
         }
-      
-        bullets.add(bullet);
-        lastBulletProduceTime = millis();
-      }
-      
+        
+        if (pressUpKey && onPlatform) {
+            fallSpeed = -4; //给一个初始的向上跳的速度
+            onPlatform = false;
+        } else if (!onPlatform) {
+            fallSpeed += gravity;
+            if (fallSpeed >= maxFallspeed) {fallSpeed = maxFallspeed;}
+            y += fallSpeed;
+        }
+        
+        if (pressShootKey) {
+            isShooting = true;
+            Bullet bullet;
+            int right = 1;
+            int left = -1;
+            if (millis() - lastBulletProduceTime > bulletProduceInterval) {
+                if (facingRight) {
+                    bullet = new Bullet(this.x + this.w / 2, this.y + 10, right); //这个数值是根据视觉效果在枪口处来调整的
+                } else{
+                    bullet = new Bullet(this.x + this.w / 2, this.y + 10, left);
+                }
+                firedBullets.add(bullet);
+                lastBulletProduceTime = millis();
+            }
+            firedBulletsUpdate();
+        }
     }
     
-    bulletUpdate();
     
-  }
-  
-  void bulletUpdate(){
-    for(int i = bullets.size()-1; i >= 0; i--){
-      Bullet bullet = bullets.get(i);
-      bullet.update();
-      if(bullet.x >= width || bullet.x <= 0){
-       bullets.remove(i); 
-      }
-      bullet.display();
-      
-    }
-  }
-  
-  
-  void collide(ArrayList<Platform> platforms){
-    boolean flag = false;
-    for(int i = 0; i < platforms.size(); i++){
-      Platform platform = platforms.get(i);
-      if(y + h >= platform.y - 1 && y + h <= platform.y + 1 && x + w >= platform.x && x <= platform.x + platform.w && vy > 0){
-        y = platform.y - h;
-        onplatform = true;
-        flag = true;
-      }
+    void collideWithPlatform(ArrayList<Platform> platforms) {
+        for (int i = 0; i < platforms.size(); i++) {
+            Platform platform = platforms.get(i);
+            //设计当人物只要有一点在平台上时，就算是在平台上,//添加十个像素，按照脚是否越界来算
+            collide(platform.x, platform.y, platform.w, platform.h);
+        }
     }
     
-    if(!flag){
-      onplatform = false;
+    void collide(float platformX, float platformY, float platformWidth, float platformHeight) { 
+        if (y + h >= platformY && y < platformY + platformHeight && x + w - 10 > platformX && x + 10 < platformX + platformWidth) { //这一帧会相撞
+            if (fallSpeed > 0) { // while falling
+                if (y + h - platformY <= fallSpeed) {
+                    //println("landing");
+                    y = platformY - h;
+                    fallSpeed = 0;
+                    onPlatform = true;
+                    //更新人物状态图像
+                    // switch(id){
+                    // case 1 : image = playerBlueDefault;
+                    // case 2 : image = playerRedDefault;
+                // }
+                } else { // hitting side of platform while falling 撞到边了 
+                    // println("falling side");
+                    moveSpeed = 0; // stop sideways motion
+                    if (x + w > platformX) {
+                        x = platformX - w; // 平台左边相撞
+                    } else {
+                        x = platformX + platformWidth; // 平台右边撞击
+                    }
+                    onPlatform = false;
+                }
+            } else { // while rising
+                // bumping under platform, stop
+                if ((platformY + platformHeight) - y < - fallSpeed) {
+                    //println("head bump");
+                    fallSpeed = 0;
+                    y = platformY + platformHeight;
+                    onPlatform = false;
+                } else { // hitting side of platform while rising
+                    //println("rising side");
+                    moveSpeed = 0;
+                    if (x < platformX) x =  platformX - w; // left side collide
+                    else x = platformX + platformWidth; // right side collide
+                    onPlatform = false;
+                }
+            } 
+        }
+    }  
+    
+    void collideWithBullet(ArrayList<Bullet> firedBullets) {
+        boolean flag = false;
+        for (int i = 0; i < firedBullets.size(); i++) {
+            Bullet bullet = firedBullets.get(i);
+            if (bullet.moveSpeed > 0) {
+                if (y + h >= bullet.y + bullet.h && y <= bullet.y && x <= bullet.x + bullet.w) {
+                   // harmValue -= bullet.harmValue;
+                    x += 70;//击退的值，暂定70
+                    firedBullets.remove(i);
+                }
+            } else{
+                if (y + h >= bullet.y + bullet.h && y <= bullet.y && x + w >= bullet.x) {
+                   // harmValue -= bullet.harmValue;
+                    x -= 70; //击退
+                    firedBullets.remove(i);
+                }
+            }
+            
+        }
     }
-  }
-  
-  
-  void updateImage(){
-     if (vy == 1 && !shooting) {
-      // idle
-      if (facingRight) {
-        if(id == 1){
-          image(BlueidleRight, x, y, w, h);
-        }else{
-          image(RedidleRight, x, y, w, h);
+    
+    
+    void display(View view) {
+        //非射击状态
+        if (!isShooting && facingRight) {
+            //jump
+            if (!onPlatform) {
+                switch(id) {
+                    case 1 : image(view.blueJumpRight,x, y, w, h); break;
+                    case 2 : image(view.redJumpRight, x, y, w, h); break;
+                }
+            }
+            //run
+            if (moveSpeed!= 0) {
+                switch(id) {
+                    case 1 : image(view.blueRunRight,x, y, w, h); break;
+                    case 2 : image(view.redIdleRight, x, y, w, h); break;
+                }
+            }
+            // idle 
+            else{  
+                switch(id) {
+                    case 1 : image(view.blueIdleRight,x, y, w, h); break;
+                    case 2 : image(view.redIdleRight, x, y, w, h); break;
+                }
+            }
+        } 
+        else if (!isShooting && !facingRight) {
+            //jump
+            if (!onPlatform) {
+                switch(id) {
+                    case 1 : image(view.blueJumpLeft,x, y, w, h); break;
+                    case 2 : image(view.redJumpLeft, x, y, w, h); break;
+                }
+            }
+            // run
+            else if (moveSpeed!= 0) {
+                switch(id) {
+                    case 1 : image(view.blueRunLeft,x, y, w, h); break;
+                    case 2 : image(view.redIdleLeft, x, y, w, h); break;
+                }
+            } 
+            // idle
+            else{ 
+                switch(id) {
+                    case 1 : image(view.blueIdleLeft,x, y, w, h); break;
+                    case 2 : image(view.redIdleLeft, x, y, w, h); break;
+                }
+            }
+            
+        } 
+        //射击状态
+        else if (isShooting) {
+            if (facingRight) {
+                switch(id) {
+                    case 1 : image(view.blueShootRight,x, y, w, h); break;
+                    case 2 : image(view.redShootRight, x, y, w, h); break;
+                }
+            } 
+            else{
+                switch(id) {
+                    case 1 : image(view.blueShootLeft,x, y, w, h); break;
+                    case 2 : image(view.redShootLeft, x, y, w, h); break;
+                }
+            }
         }
-      } else {
-        if(id == 1){
-          image(BlueidleLeft, x, y, w, h);
-        }else{
-          image(RedidleLeft, x, y, w, h);
-        }
-      }
-    } else if (moveSpeed != 0 && vy == 1 && !shooting) {
-      // run
-      if (facingRight) {
-        if(id == 1){
-          image(BluerunRight, x, y, w, h);
-        }else{
-          image(RedrunRight, x, y, w, h);
-        }
-      } else {
-        if(id == 1){
-          image(BluerunLeft, x, y, w, h);
-        }else{
-          image(RedrunLeft, x, y, w, h);
-        }
-      }
-    } else if (vy != 1 && !shooting) {
-      // jump
-      if (facingRight) {
-        if(id == 1){
-          image(BluejumpRight, x, y, w, h);
-        }else{
-          image(RedjumpRight, x, y, w, h);
-        }
-      } else {
-        if(id == 1){
-          image(BluejumpLeft, x, y, w, h);
-        }else{
-          image(RedjumpLeft, x, y, w, h);
-        }
-      }
-    } else if (shooting) {
-      // shooting
-      shooting = false;
-      if (facingRight) {
-        if(id == 1){
-          image(BlueshootRight, x, y, w, h);
-        }else{
-          image(RedshootRight, x, y, w, h);
-        }
-      } else {
-        if(id == 1){
-          image(BlueshootLeft, x, y, w, h);
-        }else{
-          image(RedshootLeft, x, y, w, h);
-        }
-      }
     }
-  }
-  
-  
+    
 }
-
-  
-
-  
-
-  

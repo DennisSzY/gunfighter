@@ -2,10 +2,12 @@ import gifAnimation.*;
 
 String player1Keys = "Player 1: Blue "; // Control keys for player 1
 String player2Keys = "Player 2: Red "; 
+boolean gameStarted = false;
+boolean gameOver = false;
+int winner;
 
 View view;
 Model model;
-Controller controller;
 
 void setup() {
     view = new View();
@@ -15,7 +17,7 @@ void setup() {
 
 void draw() {
     image(view.backgroundImage, 0, 0, width, height);
-    if (!model.gameStarted) {
+    if (!gameStarted) {
         notStart();
     } else{
         isGameOver();
@@ -35,7 +37,7 @@ void notStart() {
 
 //is game over
 void isGameOver() {
-    if (model.gameOver) {
+    if (gameOver) {
         view.gameOverPage();
     }
 }
@@ -43,8 +45,8 @@ void isGameOver() {
 //reset game
 //push the reset game
 void mousePressed() {
-    if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
-       // controller.resetGame();
+    if (gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
+        resetGame();
     }
 }
 
@@ -53,8 +55,8 @@ void mousePressed() {
 //    text("START GAME", width / 2 - 50, height / 2 - 100);
 
 void mouseClicked() {
-    if (!model.gameStarted && mouseX > width / 2 - 175 && mouseX < width / 2 + 170 && mouseY > height / 2 - 100 - 35 && mouseY < height / 2 - 100 + 35) {
+    if (!gameStarted && mouseX > width / 2 - 175 && mouseX < width / 2 + 170 && mouseY > height / 2 - 100 - 35 && mouseY < height / 2 - 100 + 35) {
         // Start game button clicked
-        model.gameStarted = true;
+        gameStarted = true;
     }
 }
