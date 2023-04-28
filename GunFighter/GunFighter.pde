@@ -4,50 +4,44 @@ String player1Keys = "Player 1: Blue "; // Control keys for player 1
 String player2Keys = "Player 2: Red "; 
 
 Model model;
-Controller controller;
 
 void setup() {
     uploadPic();
     model = new Model();
-    size(800, 500);
+    size(1280, 720);
 }
 
-// void draw() {
-//     image(backgroundImage, 0, 0, width, height);
-//     if (!model.gameStarted) {
-//         notStart();
-//     } else{
-//         isGameOver();
-//         model.updatePlatforms();
-//         model.updatePlayer(model.playerBlue, model.platforms, model.playerRed);
-//         model.updatePlayer(model.playerRed, model.platforms, model.playerBlue);
-//     }
-//     isGameOver();
-// }
+void draw() {
+    image(backgroundImage, 0, 0, width, height);
+    if (!model.gameStarted) {
+        notStart();
+    } else{
+        if (!model.isGameOver()) {
+            model.produceDeadFloor();
+            model.producePlatforms();
+            model.updatePlatforms();
+            model.updatePlayer(model.playerBlue, model.platforms, model.playerRed);
+            model.updatePlayer(model.playerRed, model.platforms, model.playerBlue);
+        }
+        else{
+            gameOverPage();
+        }
+    }
+}
 
 void notStart() {
     homePage();
 }
 
 
-//is game over
-void isGameOver() {
-    if (model.gameOver) {
-        gameOverPage();
-    }
-}
-
 //reset game
 //push the reset game
 void mousePressed() {
-    if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
+    if (model.isGameOver() && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
         // controller.resetGame();
     }
 }
 
-name(object) {
-    
-}
 
 //rect(width / 2, height / 2 - 100, 250, 70, 10);
 //    fill(0);

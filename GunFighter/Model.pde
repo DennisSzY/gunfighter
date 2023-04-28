@@ -1,5 +1,6 @@
 public class Model {
     ArrayList<Platform> platforms;
+    Platform deadPlatform;
     float lastPlatformProduceTime; // milliseconds
     float platformProduceInterval; // 平台生成的时间间隔为2000毫秒milliseconds
     
@@ -7,22 +8,30 @@ public class Model {
     Player playerRed; //id = 2
     
     boolean gameStarted;
-    boolean gameOver;
+    // boolean gameOver;
     int winner;//1:blue 2:red
     
     Model() {
         resetGame();
     }
     
+    //produce the deadFloor
+    void produceDeadFloor() {
+        Platform platform = new Platform(0, height - 35, width, 35, deadFloor);
+        platform.display();
+    }
     //produce the random platform periodly
     void producePlatforms() {
-        float platformX = random(0,width);
-        float platformY = 0; //从顶部开始产生platform
-        float platformWidth = random(width / 4, width / 2);//随机生成平台的大小
-        float platformHeight = 25;//每个平台固定高度
-        
-        Platform platform = new Platform(platformX, platformY, platformWidth, platformHeight, floor);
-        platforms.add(platform);
+        if (millis() - lastPlatformProduceTime > platformProduceInterval) {
+            float platformX = random(0,width);
+            float platformY = 0; //从顶部开始产生platform
+            float platformWidth = random(width / 4, width / 2);//随机生成平台的大小
+            float platformHeight = 25;//每个平台固定高度
+            
+            Platform platform = new Platform(platformX, platformY, platformWidth, platformHeight, floor);
+            platforms.add(platform);
+            lastPlatformProduceTime = millis();
+        }
     }
     
     //update platform
@@ -41,19 +50,26 @@ public class Model {
     void updatePlayer(Player playerShooted, ArrayList<Platform> platforms, Player playerShooting) {
         playerShooted.update();
         //静止状态下随平台移动
+        if (playerShooted.onPlatform) {
+            playerShooted.fallSpeed = platforms.get(0).moveSpeed;
+            playerShooted.y += playerShooted.fallSpeed;
+        }
         playerShooted.collideWithPlatform(platforms);
         playerShooted.collideWithBullet(playerShooting.firedBullets);
         playerShooted.display();
     }
     
-    void isGameOver() {
+    boolean isGameOver() {
         if (playerBlue.y + playerBlue.h >= height - 35) {
-            gameOver = true;
+            // gameOver = true;
             winner = 2;
+            return true;
         } else if (playerRed.y + playerRed.h >= height - 35) {
-            gameOver = true;
+            // gameOver = true;
             winner = 1;
+            return true;
         }
+        return false;
     }
     
     void resetGame() {
@@ -73,16 +89,13 @@ public class Model {
         platforms.add(platform4);
         platforms.add(platform5);
         platforms.add(platform6);
-        //produce the deadFloor
-        Platform platform = new Platform(0, height - 35, width, 35, deadFloor);
-        platform.display();
         //produce the player
-        // playerBlue = new Player(30, height - 500, true, 1); 
-        // playerRed = new Player(width - 30, height - 500, false, 2);
-        //playerBlue.setOpkeys("a", "d", "w", "g");
-        //playerRed.setOpkeys("LEFT", "RIGHT", "UP", "SPACE");
+        playerBlue = new Player(30, height - 500, true, 1); 
+        playerRed = new Player(width - 30, height - 500, false, 2);
+        playerBlue.setOpkeys('a', 'd', 'w', 'z');
+        playerRed.setOpkeys('j', 'l', 'i', '.');
         boolean gameStarted = false;
-        boolean gameOver = false;
+        // boolean gameOver = false;
     } 
     
 }

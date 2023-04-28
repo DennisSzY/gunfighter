@@ -21,8 +21,4 @@ class Platform {
     void update() {
         this.y += moveSpeed; //向上移动，更新y的位置
     }
-    
-    // void setmoveSpeed(int moveSpeed) {
-    //     this.moveSpeed = moveSpeed;
-// }
 }

@@ -8,10 +8,10 @@ public class Player {
     
     //player 的速度信息
     float moveSpeed = 0; //horizontal velocity,朝右为正，朝左为负
-    final float maxMoveSpeed = 5;  //水平速度最大值, 是绝对值，使用的时候需要乘以方向系数...
+    final float maxMoveSpeed = 10;  //水平速度最大值, 是绝对值，使用的时候需要乘以方向系数...
     final float acc = 5; //horizontal acc，水平加速度 ，是绝对值，使用的时候需要乘以方向系数...
     float fallSpeed = 0;
-    final float maxFallspeed = 4;
+    final float maxFallspeed = 8;
     final float gravity = 0.9;//vertical acc
     
     //player的状态信息
@@ -28,8 +28,8 @@ public class Player {
     float bulletProduceInterval = 400; // milliseconds
     float lastBulletProduceTime = 0; // milliseconds
     //player的操作键位
-    String leftKey,rightKey,upKey,shootKey;
-    public void setOpkeys(String leftKey, String RightKey, String upKey, String shootKey) {
+    char leftKey,rightKey,upKey,shootKey;
+    public void setOpkeys(char leftKey, char rightKey, char upKey, char shootKey) {
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
@@ -46,16 +46,6 @@ public class Player {
     }
     
     
-    void firedBulletsUpdate() {
-        for (int i = firedBullets.size() - 1; i >= 0; i--) {
-            Bullet bullet = firedBullets.get(i);
-            bullet.update();
-            if (bullet.x >= width || bullet.x <= 0) {
-                firedBullets.remove(i); 
-            }
-            bullet.display(this);
-        }
-    }
     
     void update() {
         if (pressLeftKey && !pressRightKey) {
@@ -76,7 +66,7 @@ public class Player {
         }
         
         if (pressUpKey && onPlatform) {
-            fallSpeed = -4; //给一个初始的向上跳的速度
+            fallSpeed = -14; //给一个初始的向上跳的速度
             onPlatform = false;
         } else if (!onPlatform) {
             fallSpeed += gravity;
@@ -98,7 +88,18 @@ public class Player {
                 firedBullets.add(bullet);
                 lastBulletProduceTime = millis();
             }
-            firedBulletsUpdate();
+        }
+        firedBulletsUpdate();
+    }
+    
+    void firedBulletsUpdate() {
+        for (int i = firedBullets.size() - 1; i >= 0; i--) {
+            Bullet bullet = firedBullets.get(i);
+            bullet.update();
+            if (bullet.x >= width || bullet.x <= 0) {
+                firedBullets.remove(i); 
+            }
+            bullet.display(this);
         }
     }
     
@@ -109,7 +110,7 @@ public class Player {
             //设计当人物只要有一点在平台上时，就算是在平台上,//添加十个像素，按照脚是否越界来算
             collide(platform.x, platform.y, platform.w, platform.h);
         }
-    }
+    }  
     
     void collide(float platformX, float platformY, float platformWidth, float platformHeight) { 
         if (y + h >= platformY && y < platformY + platformHeight && x + w - 10 > platformX && x + 10 < platformX + platformWidth) { //这一帧会相撞
@@ -123,31 +124,8 @@ public class Player {
                     // switch(id){
                     // case 1 : image = playerBlueDefault;
                     // case 2 : image = playerRedDefault;
-                // }
-                } else { // hitting side of platform while falling 撞到边了 
-                    // println("falling side");
-                    moveSpeed = 0; // stop sideways motion
-                    if (x + w > platformX) {
-                        x = platformX - w; // 平台左边相撞
-                    } else {
-                        x = platformX + platformWidth; // 平台右边撞击
-                    }
-                    onPlatform = false;
-                }
-            } else { // while rising
-                // bumping under platform, stop
-                if ((platformY + platformHeight) - y < - fallSpeed) {
-                    //println("head bump");
-                    fallSpeed = 0;
-                    y = platformY + platformHeight;
-                    onPlatform = false;
-                } else { // hitting side of platform while rising
-                    //println("rising side");
-                    moveSpeed = 0;
-                    if (x < platformX) x =  platformX - w; // left side collide
-                    else x = platformX + platformWidth; // right side collide
-                    onPlatform = false;
-                }
+                //}
+                } 
             } 
         }
     }  
@@ -225,6 +203,7 @@ public class Player {
         } 
         //射击状态
         else if (isShooting) {
+            isShooting = false;
             if (facingRight) {
                 switch(id) {
                     case 1 : image(blueShootRight,x, y, w, h); break;

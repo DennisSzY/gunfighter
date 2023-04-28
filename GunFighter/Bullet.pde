@@ -1,9 +1,9 @@
 class Bullet {
     float x, y;
-    float moveSpeed = 4;
+    float moveSpeed = 15;
+    float fallSpeed = 1.1;
     float h = 8;
     float w = 40;
-    // int harmValue = 2; //伤害值
     PImage image;
     
     //初始化初始位置+初始速度，速度是定值，这里主要是为了给定方向
@@ -16,6 +16,7 @@ class Bullet {
     //子弹的位置更新
     void update() {
         this.x = this.x + this.moveSpeed;
+        this.y = this.y + this.fallSpeed;
     }
     
     //子弹的显示

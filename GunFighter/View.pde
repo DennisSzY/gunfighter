@@ -85,10 +85,7 @@ public void gameOverPage() {
 }
 
 public void homePage() {
-    class shape{
-        x,y,w,h,text;
-        dis
-    }
+    
     rectMode(CENTER);
     textSize(25);
     fill(255,0,0);
