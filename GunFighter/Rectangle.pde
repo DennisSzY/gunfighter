@@ -7,6 +7,10 @@ class Rectangle extends Shape{
   }
  @Override
  void display(){
+   
+   if(hasStroke){
+     stroke(strokeVal);
+   }
    if(hasFill){
      fill(Tricolor1, Tricolor2, Tricolor3, alpha);
    }else{

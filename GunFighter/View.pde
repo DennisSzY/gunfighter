@@ -22,6 +22,7 @@ Shape play;
 Shape hard;
 Shape medium;
 Shape easy;
+Shape reset;
 
 void uploadPic() {
     floor = loadImage("floor.jpg");
@@ -85,7 +86,33 @@ void uploadPic() {
 
 
 public void gameOverPage() {
+    background(0);
+    fill(255);
+    textAlign(LEFT, TOP);
+    textSize(32);
+    text("Game Over!", width/2-100, height/2);
+    String winnerCol;
+    if(model.winner == 1){
+      winnerCol = "blue";
+    }else{
+      winnerCol = "red";
+    }
+    text("Winner: " + winnerCol + "player" + model.winner, width/2-150, height/2+50);
     
+    // Draw Restart button
+    reset = new Rectangle(width/2-65, height/2 +125, 100, 50);
+    reset.setStrokeVal(255);
+    reset.setFillColors(0,0,0);
+    reset.setText(255, 16, "Restart", width/2-40, height/2+140);
+    reset.display();
+    if(model.winner == 1){
+     image(playerBlue, width/2-100, height/2 - 200, 200, 150);
+
+    }else{
+     image(playerRed, width/2-100, height/2 - 200, 200, 150);
+
+    }
+
 }
 
 public void homePage() {

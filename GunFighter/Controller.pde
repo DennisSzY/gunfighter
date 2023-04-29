@@ -45,7 +45,7 @@ void mouseClicked() {
         model.platformProduceInterval = 1500;
     }
     
-    if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
+    if (model.gameOver && isHover(reset)) {
         model.resetGame();
     }
 }

@@ -1,7 +1,7 @@
 class Bullet {
     float x, y;
     float moveSpeed = 15;
-    float fallSpeed = 1.1;
+    float fallSpeed = 2.1;
     float h = 8;
     float w = 40;
     PImage image;
