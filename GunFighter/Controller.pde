@@ -28,6 +28,11 @@ void mouseClicked() {
         // Start game button clicked
         model.gameStarted = true;
         clickEvent();
+        //produce the player
+        model.playerBlue = new Player(30, height - 600, true, 1, model.platformFallSpeed); 
+        model.playerRed = new Player(width - 30, height - 600, false, 2, model.platformFallSpeed);
+        model.playerBlue.setOpkeys('a', 'd', 'w', 'z');
+        model.playerRed.setOpkeys('j', 'l', 'i', '.');
     }
     
     if (!model.gameStarted && easy.isHover()) {
@@ -48,7 +53,7 @@ void mouseClicked() {
         medium.isClicked = false;
     }
     
-    if (model.gameOver && isHover(reset)) {
+    if (model.gameOver && reset.isHover()) {
         model.resetGame();
     }
 }

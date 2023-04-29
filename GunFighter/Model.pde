@@ -92,11 +92,7 @@ public class Model {
         platforms = new ArrayList<Platform>();
         platformProduceInterval = 3500;
         lastPlatformProduceTime = 0;
-        //produce the player
-        playerBlue = new Player(30, height - 600, true, 1,platformFallSpeed); 
-        playerRed = new Player(width - 30, height - 600, false, 2,platformFallSpeed);
-        playerBlue.setOpkeys('a', 'd', 'w', 'z');
-        playerRed.setOpkeys('j', 'l', 'i', '.');
+        
         gameStarted = false;
         gameOver = false;
 
