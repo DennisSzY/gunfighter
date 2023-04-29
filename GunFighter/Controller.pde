@@ -48,7 +48,7 @@ void mouseClicked() {
         medium.isClicked = false;
     }
     
-    if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
+    if (model.gameOver && isHover(reset)) {
         model.resetGame();
     }
 }

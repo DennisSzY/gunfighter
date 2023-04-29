@@ -166,7 +166,6 @@ public class Player {
                     isShooted = true;
                     facingRight = false;
                     // x += 70;//向右击退,脸朝左，暂定70//
-
                     //加载向左的击退图像
                     firedBullets.remove(i);
                 }

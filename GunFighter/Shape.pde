@@ -8,6 +8,8 @@ abstract class Shape{
   int textX, textY;
   boolean hasFill = false;
   boolean hasText = false;
+  boolean hasStroke = false;
+  int strokeVal;
   int radii = 0;
   boolean isClicked = false;
 
@@ -20,6 +22,10 @@ abstract class Shape{
   
   void setOpacity(int alpha){
    this.alpha = alpha; 
+  }
+  
+  void setStrokeVal(int strokeVal){
+    this.strokeVal = strokeVal;
   }
   
   void setText(int textFill, int textSize, String textContent, int textX, int textY){

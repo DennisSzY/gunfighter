@@ -20,7 +20,9 @@ class Rectangle extends Shape{
       noFill();
     }
   }
-  
+  if(hasStroke){
+     stroke(strokeVal);
+   }
    rect(x, y, w, h, radii);
    if(hasText){
      fill(textFill);
