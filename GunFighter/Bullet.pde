@@ -1,16 +1,17 @@
 class Bullet {
     float x, y;
     float moveSpeed = 15;
-    float fallSpeed = 1.1;
+    float fallSpeed = 2.1;
     float h = 8;
     float w = 40;
     PImage image;
     
     //初始化初始位置+初始速度，速度是定值，这里主要是为了给定方向
-    Bullet(float x, float y, int directionValue) {
+    Bullet(float x, float y, int directionValue,float fallSpeed) {
         this.x = x;
         this.y = y;
         this.moveSpeed = directionValue * this.moveSpeed;
+        this.fallSpeed = fallSpeed;
     }
     
     //子弹的位置更新

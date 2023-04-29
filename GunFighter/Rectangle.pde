@@ -7,11 +7,20 @@ class Rectangle extends Shape{
   }
  @Override
  void display(){
-   if(hasFill){
-     fill(Tricolor1, Tricolor2, Tricolor3, alpha);
-   }else{
-     noFill();
-   }
+  if(isHover()){
+    fill(255,0,0);
+  }
+  else if(isClicked){
+    fill(255,0,0);
+  }
+  else{
+    if(hasFill){
+      fill(Tricolor1, Tricolor2, Tricolor3, alpha);
+    }else{
+      noFill();
+    }
+  }
+  
    rect(x, y, w, h, radii);
    if(hasText){
      fill(textFill);
@@ -19,4 +28,5 @@ class Rectangle extends Shape{
       text(textContent, textX, textY);
    }
  }
+
 }

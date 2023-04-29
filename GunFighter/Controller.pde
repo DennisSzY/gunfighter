@@ -24,25 +24,28 @@ void keyReleased() {
 }
 //打包鼠标点击页面的地方
 void mouseClicked() {
-    if (!model.gameStarted && isHover(play)) {
+    if (!model.gameStarted && play.isHover()) {
         // Start game button clicked
         model.gameStarted = true;
+        clickEvent();
     }
     
-    if (!model.gameStarted && isHover(easy)) {
-        model.platformFallSpeed = 2;
-        model.platformProduceInterval = 3500;
+    if (!model.gameStarted && easy.isHover()) {
+        easy.isClicked = true;
+        hard.isClicked = false;
+        medium.isClicked = false;
     }
     
-    if (!model.gameStarted && isHover(medium)) {
-        model.platformFallSpeed = 3;
-        model.platformProduceInterval = 2000;
-
+    if (!model.gameStarted && medium.isHover()) {
+        medium.isClicked = true;
+        easy.isClicked = false;
+        hard.isClicked = false;
     }
     
-    if (!model.gameStarted && isHover(hard)) {
-        model.platformFallSpeed = 4;
-        model.platformProduceInterval = 1500;
+    if (!model.gameStarted && hard.isHover()) {
+        hard.isClicked = true;
+        easy.isClicked = false;
+        medium.isClicked = false;
     }
     
     if (model.gameOver && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 50 && mouseY < height / 2 + 100) {
@@ -50,11 +53,22 @@ void mouseClicked() {
     }
 }
 
-boolean isHover(Shape shape){
-  if(mouseX > shape.x && mouseX < shape.x+shape.w && mouseY > shape.y && mouseY < shape.y+shape.h){
-    shape.setFillColors(255,0,0);
-    shape.display();
-    return true;
-  }
-  return false;
+void clickEvent(){
+    if(easy.isClicked){
+        model.platformFallSpeed = 2;
+        model.platformProduceInterval = 3500;
+        model.produceInitialPlatforms();
+        // println("size:" + model.platforms.size());
+    }
+    if(medium.isClicked){
+        model.platformFallSpeed = 3;
+        model.platformProduceInterval = 2000;
+        model.produceInitialPlatforms();
+    }
+    if(hard.isClicked){
+        model.platformFallSpeed = 8;
+        model.platformProduceInterval = 1500;
+        model.produceInitialPlatforms();
+    }
 }
+

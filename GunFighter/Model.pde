@@ -17,6 +17,21 @@ public class Model {
         resetGame();
     }
     
+    void produceInitialPlatforms(){
+        platforms.clear();
+        Platform platform1 = new Platform(0, height / 1.5, width / 4, 20, floor, platformFallSpeed);
+        Platform platform2 = new Platform(width / 4 * 3, height / 1.5, width / 4, 25, floor, platformFallSpeed);
+        Platform platform3 = new Platform(250, height / 2 + 50, width / 2, 20, floor, platformFallSpeed);
+        Platform platform4 = new Platform(0, height / 3, width / 4, 20,floor, platformFallSpeed);
+        Platform platform5 = new Platform(width / 4 * 3, height / 3, width / 4, 25, floor, platformFallSpeed);
+        Platform platform6 = new Platform(250, height / 3 - 100, width / 2, 25, floor, platformFallSpeed);
+        platforms.add(platform1);
+        platforms.add(platform2);
+        platforms.add(platform3);
+        platforms.add(platform4);
+        platforms.add(platform5);
+        platforms.add(platform6);
+    }
     //produce the deadFloor
     void produceDeadFloor() {
         Platform platform = new Platform(0, height - 35, width, 35, deadFloor, 0);
@@ -77,25 +92,26 @@ public class Model {
         platforms = new ArrayList<Platform>();
         platformProduceInterval = 3500;
         lastPlatformProduceTime = 0;
-        Platform platform1 = new Platform(0, height / 1.5, width / 4, 20, floor, 2);
-        Platform platform2 = new Platform(width / 4 * 3, height / 1.5, width / 4, 25, floor, 2);
-        Platform platform3 = new Platform(250, height / 2 + 50, width / 2, 20, floor,2);
-        Platform platform4 = new Platform(0, height / 3, width / 4, 20,floor, 2);
-        Platform platform5 = new Platform(width / 4 * 3, height / 3, width / 4, 25, floor, 2);
-        Platform platform6 = new Platform(250, height / 3 - 100, width / 2, 25, floor, 2);
-        platforms.add(platform1);
-        platforms.add(platform2);
-        platforms.add(platform3);
-        platforms.add(platform4);
-        platforms.add(platform5);
-        platforms.add(platform6);
         //produce the player
-        playerBlue = new Player(30, height - 600, true, 1); 
-        playerRed = new Player(width - 30, height - 600, false, 2);
+        playerBlue = new Player(30, height - 600, true, 1,platformFallSpeed); 
+        playerRed = new Player(width - 30, height - 600, false, 2,platformFallSpeed);
         playerBlue.setOpkeys('a', 'd', 'w', 'z');
         playerRed.setOpkeys('j', 'l', 'i', '.');
         gameStarted = false;
         gameOver = false;
+
+        easy = new Rectangle(595, 262, 93, 55);
+        easy.setFillColors(236, 138, 161);
+        easy.setText(255, 20, "EASY", 615, 278);
+        easy.isClicked = true;
+
+        medium = new Rectangle(698, 262, 93, 55);
+        medium.setFillColors(206, 81, 111);
+        medium.setText(255, 20, "MEDIUM", 704, 278);
+
+        hard = new Rectangle(802, 262, 93, 55);
+        hard.setFillColors(181, 36, 71);
+        hard.setText(255, 20, "HARD", 820, 278);
     } 
     
 }

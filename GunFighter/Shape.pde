@@ -9,6 +9,7 @@ abstract class Shape{
   boolean hasFill = false;
   boolean hasText = false;
   int radii = 0;
+  boolean isClicked = false;
 
   void setFillColors(int Tricolor1, int Tricolor2, int Tricolor3){
     this.Tricolor1 = Tricolor1;
@@ -32,6 +33,13 @@ abstract class Shape{
   
   void setRad(int rad){
     this.radii = rad;
+  }
+
+  boolean isHover(){
+    if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h){
+      return true;
+    }
+      return false;
   }
   
   abstract void display();

@@ -125,19 +125,9 @@ public void homePage() {
   roleDisplay(235,290, 110,110, playerBlue);
   roleDisplay(235,473, 110,110, playerRed);
   
-  easy = new Rectangle(595, 262, 93, 55);
-  easy.setFillColors(236, 138, 161);
-  easy.setText(255, 20, "EASY", 615, 278);
+
   easy.display();
-  
-  medium = new Rectangle(698, 262, 93, 55);
-  medium.setFillColors(206, 81, 111);
-  medium.setText(255, 20, "MEDIUM", 704, 278);
   medium.display();
-  
-  hard = new Rectangle(802, 262, 93, 55);
-  hard.setFillColors(181, 36, 71);
-  hard.setText(255, 20, "HARD", 820, 278);
   hard.display();
   
   fill(255);

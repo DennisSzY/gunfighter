@@ -27,6 +27,7 @@ public class Player {
     ArrayList<Bullet> firedBullets = new ArrayList<>();
     float bulletProduceInterval = 400; // milliseconds
     float lastBulletProduceTime = 0; // milliseconds
+    float platformFallSpeed;
     //player的操作键位
     char leftKey,rightKey,upKey,shootKey;
     public void setOpkeys(char leftKey, char rightKey, char upKey, char shootKey) {
@@ -38,11 +39,12 @@ public class Player {
     Boolean pressLeftKey = false, pressRightKey = false, pressUpKey = false, pressShootKey = false;
     
     //构造函数
-    Player(float x, float y, boolean facingRight, int id) {
+    Player(float x, float y, boolean facingRight, int id, float platformFallSpeed) {
         this.x = x;
         this.y = y;
         this.facingRight = facingRight;
         this.id = id;
+        this.platformFallSpeed = platformFallSpeed;
     }
     
     
@@ -52,6 +54,7 @@ public class Player {
             if(facingRight){
                 x -= 20;
                 distance += 20;
+                if (x  < 0) { x = 0;}
                 if (distance == 60) {
                     isShooted = false;
                     distance = 0;
@@ -59,6 +62,7 @@ public class Player {
             }else{ 
                 x += 20;
                 distance += 20;
+                if (x + w >= width) { x = width - w;} 
                 if (distance == 60) {
                     isShooted = false;
                     distance = 0;
@@ -98,9 +102,9 @@ public class Player {
                 int left = -1;
                 if (millis() - lastBulletProduceTime > bulletProduceInterval) {
                     if (facingRight) {
-                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, right); //这个数值是根据视觉效果在枪口处来调整的
+                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, right, platformFallSpeed+0.1); //这个数值是根据视觉效果在枪口处来调整的
                     } else{
-                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, left);
+                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, left, platformFallSpeed+0.1);
                     }
                     firedBullets.add(bullet);
                     lastBulletProduceTime = millis();
