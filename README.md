@@ -29,6 +29,8 @@ The implementation of our code encountered three primary challenges:
 
 Firstly, the generation of platforms in a random manner. The platforms descend at a specific rate, which is determined by the game's difficulty level. The horizontal position of the platforms is also randomly determined.
 
+![easy](https://user-images.githubusercontent.com/104490863/236059295-8238cf56-fcbd-48dc-9100-36a96c3574b4.gif)
+
 It is worth noting that the game begins with a pre-generated set of platforms to provide the player with a starting point for landing. The randomly generated platforms should be positioned within the interface and unobstructed to allow for unhindered jumping.
 To generate the platforms at fixed intervals, we use the following code: 
 
