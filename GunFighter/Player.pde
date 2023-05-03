@@ -52,19 +52,19 @@ public class Player {
     void update() {
         if(isShooted){
             if(facingRight){
-                x -= 20;
-                distance += 20;
+                x -= 40;
+                distance += 40;
                 if (x  < 0) { x = 0;}
-                if (distance == 60) {
+                if (distance == 120) {
                     isShooted = false;
                     audioshooted = false;
                     distance = 0;
                 }
             }else{ 
-                x += 20;
-                distance += 20;
+                x += 40;
+                distance += 40;
                 if (x + w >= width) { x = width - w;} 
-                if (distance == 60) {
+                if (distance == 120) {
                     isShooted = false;
                     distance = 0;
                 }

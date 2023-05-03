@@ -40,11 +40,10 @@ public class Model {
     //produce the random platform periodly
     void producePlatforms() {
         if (millis() - lastPlatformProduceTime > platformProduceInterval) {
-            float platformX = random(0,width-200);
-            float platformY = 0; //从顶部开始产生platform
-            float platformWidth = random(width / 4, width / 2);//随机生成平台的大小
-            float platformHeight = 25;//每个平台固定高度
-            
+            float platformX = random(0,width-200); // random platform x position
+            float platformY = 0; //prodece the tplatform at the top of interface
+            float platformWidth = random(width / 4, width / 2);// random platform width
+            float platformHeight = 25;// platform fixed height
             Platform platform = new Platform(platformX, platformY, platformWidth, platformHeight, floor, platformFallSpeed);
             platforms.add(platform);
             lastPlatformProduceTime = millis();
