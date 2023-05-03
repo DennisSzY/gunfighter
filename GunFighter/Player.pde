@@ -57,6 +57,7 @@ public class Player {
                 if (x  < 0) { x = 0;}
                 if (distance == 60) {
                     isShooted = false;
+                    audioshooted = false;
                     distance = 0;
                 }
             }else{ 
@@ -164,6 +165,7 @@ public class Player {
             if (bullet.moveSpeed > 0) {
                 if (y + h >= bullet.y + bullet.h && y <= bullet.y && x <= bullet.x + bullet.w) {
                     isShooted = true;
+                    audioshooted = true;
                     facingRight = false;
                     // x += 70;//向右击退,脸朝左，暂定70//
                     //加载向左的击退图像
