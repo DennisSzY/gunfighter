@@ -65,6 +65,8 @@ For detecting if the player is hit by an opponent's bullet, we first check if th
 
 If the bullet's moveSpeed is not greater than 0, then we assume that the bullet is moving to the left. In this case, we check whether the bottom edge of the player rectangle (y + h) is below the top edge of the bullet (bullet.y + bullet.h), whether the top edge of the player rectangle (y) is above the top edge of the bullet (bullet.y), and whether the left edge of the player rectangle (x + w) is to the right of the left edge of the bullet (bullet.x). If these conditions are satisfied, then the player rectangle has collided with the bullet, and the code sets the "isShooted" flag to true, sets the "facingRight" flag to true, and removes the bullet from the "firedBullets" list. It is crucial to remove the bullets that hit the player from the ArrayList; otherwise, the player will keep getting hit by the same bullets.
 
+For aesthetic purposes, use some gifs and png images to visualize player, platforms, backgrounds, buttons.
+
 ## Evaluation
 
 ### 1.Qualitative evaluation:
