@@ -1,6 +1,6 @@
 class Bullet {
     float x, y;
-    float moveSpeed = 15;
+    float moveSpeed = 20;
     float fallSpeed = 2.1;
     float h = 8;
     float w = 40;

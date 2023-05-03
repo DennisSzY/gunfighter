@@ -76,4 +76,3 @@ void clickEvent(){
         model.produceInitialPlatforms();
     }
 }
-

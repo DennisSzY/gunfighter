@@ -11,6 +11,9 @@ Gif blueShootLeft, redShootLeft;
 Gif playerBlue, playerRed;
 Gif playerBlueShooted, playerRedShooted;
 Gif playerBlueShootedLeft, playerRedShootedLeft;
+Gif easyShow;
+Gif mediumShow;
+Gif hardShow;
 PImage bulletBlueRight;
 PImage bulletBlueLeft;
 PImage bulletRedRight;
@@ -82,6 +85,14 @@ void uploadPic() {
     redShootRight.loop();
     redShootLeft = new Gif (this, "playerRedShootFacingLeft.gif");
     redShootLeft.loop();
+    
+    easyShow = new Gif (this, "easy.gif");
+    easyShow.loop();
+    mediumShow = new Gif (this, "medium.gif");
+    mediumShow.loop();
+    hardShow = new Gif (this, "hard.gif");
+    hardShow.loop();
+    
 }
 
 
@@ -117,7 +128,7 @@ public void gameOverPage() {
 
 public void homePage() {
   noStroke();
-  fill(0, 0, 0, 100);
+  fill(0, 0, 0, 200);
   rect(0, 0, width, height);
   textAlign(LEFT, TOP);
   myFont = createFont("Arial", 80);
@@ -157,8 +168,15 @@ public void homePage() {
   medium.display();
   hard.display();
   
-  fill(255);
-  rect(595, 327, 300, 268);
+  //fill(255);
+  //rect(595, 327, 300, 268);
+  if(easy.isClicked){
+    image(easyShow, 585, 360, 320, 200);
+  }else if(medium.isClicked){
+    image(mediumShow, 585, 360, 320, 200);
+  }else if(hard.isClicked){
+    image(hardShow, 585, 360, 320, 200);
+  }
   
   
   //noStroke();
