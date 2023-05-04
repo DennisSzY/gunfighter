@@ -6,6 +6,9 @@ o Team members: Xiaomeng Liu, Zhiyu Shi, Haozhe Yang
 
 o Team photo:
 
+![EE4BE297-1BAB-44F8-B8B9-A1BFB319AB8D](https://user-images.githubusercontent.com/104490863/236102983-72f073a6-66a1-4587-afb6-ea27cb3cb1ed.png)
+
+
 o paper prototype video (Gun Fighter):    
 
 https://user-images.githubusercontent.com/104490863/218481532-f9649fc1-3a84-42b5-9792-aba5c6374f9f.mp4
