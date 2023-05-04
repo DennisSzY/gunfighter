@@ -15,13 +15,13 @@ https://www.crazygames.com/game/gun-mayhem-2
 
 https://www.youtube.com/watch?v=-SksNwLmSSE&ab_channel=TheRarestGamer
 
-## Introduction
+## 2.Introduction
 
 Our game idea comes from gun-mayhem and NS-shaft platform game in which you can fight with your friends. The aim of this game is simple, you need to keep jumping between different platforms which will be randomly generated and you must knock your opponent off of the arena using your weapons. This might seem easy, but it can prove quite difficult to knock your opponent off completely without getting hit yourself!
 
 In the game we have several levels from easy to hard.In the easy mode, the platform will be falling very slow and your weapon will be weak and harmless,it is the mode suitable for novice and the people who first play this game. You can enjoy a relaxing and enjoyable leisure time with your friends.When you and your friends are familiar with the operation Instructions of this game, you can try medium mode. In medium mode the platform will not be that easy to jump to stand because it will be fallen faster. You need to be more focused on the game and be care of the bullets coming from your friends. In the hard mode, the platform will be fallen super faster and the speed of your bullet will be faster too. Which means you will be easily killed both by shooting and platforms falling. This game needs you to have good operation ability and psychological quality, try to use skills and tactics to beat your friends!
 
-## Implementation 
+## 5.Implementation 
 
 Our game code adheres to a Simplified Model-View-Controller (MVC) architecture. The Controller class is responsible for handling user input, the Model class stores the central data of the system, and the View class displays views. The Player, Platform, and Bullet classes incorporate individual variables and functions, while the Shape class and Rectangle class define the field binding with mouse Clicked events.
 
@@ -67,7 +67,7 @@ If the bullet's moveSpeed is not greater than 0, then we assume that the bullet 
 
 For aesthetic purposes, use some gifs and png images to visualize player, platforms, backgrounds, buttons.
 
-## Evaluation
+## 6.Evaluation
 
 ### 1.Qualitative evaluation:
 
@@ -162,3 +162,34 @@ As we are using processing as our platform. We did not provide any testing code 
 The Think Aloud evaluation methods mainly focused on debug and to find out some unreasonable part during the gameplay. And it worked well in checking our outline guidance whether clear or not too. It really helped us make a game that has good interaction and is quick and easy to play.
 
 Based on the result of the questionnaire, we can conclude that our game have a very nice special effects which attracts the players most. Combined with the good audio effects, the overall experience is very good. After the Think Aloud evaluation methods we redesigned our interface which have become simple and clear. Some drawbacks of our game is quite clear like etc. the lack of diversity in the range of weapons, needs more kinds of roles and maps to choose. We want but we did not have enough time to accomplish so many functions in that short time.
+
+## 7.Process (15% ~750 words)
+
+Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
+
+### 1.How did you work together
+
+  We use agile development to develop our project. We use the Agile model instead of the Waterfall model for the following reasons,first, our game inspirations are very fluid, so we needed a more flexible development model, and the agile development approach allows the team to quickly adapt development plans and tasks to changes in the project, and is therefore more flexible and better able to adapt to change and uncertainty. Secondly,We are always bursting with new game inspirations and ideas, so we need to communicate and talk often. The agile communication model places more emphasis on teamwork and communication, where team members can collaborate and communicate more closely to avoid single points of failure and development misunderstandings. So it suits our development style perfectly. Finally, we can use the agile development model to break down the development process into smaller cycles, with each cycle requiring only a portion of the functionality to be completed, so we can control time and costs more precisely, avoiding delays and saving time and costs.
+  
+  First we split the game project into two main parts, one for the game design and the other for the game content execution. The game design is done by one person and the game content is done by two people. The game designer is responsible for proposing the effects that the game needs to achieve, and then providing the images or GIF animations that need to be used in the game to the corresponding person in charge. The person in charge then has to communicate with the designer to ensure that the ideas are implemented.
+  
+  We have weekly meetings where we test and iterate on the existing code to ensure the quality and stability of the game. Then a new week is planned based on the existing game content.
+### 2.what tools did you use
+
+  There are several tools we used in team development.For game designing we use kanban board and planning poker. The Kanban board worked really well, we would list the tasks that needed to be done and the key objectives of the game development and break them down into smaller, more specific tasks. I would then set priorities and estimate completion times for each task.Then it was used to track progress and collaborate on communication based on the complexity and number of tasks. 
+  
+  When we don't know how to estimate the difficulty and time of software development, we use 'Planning Poker' to help us better understand the complexity of the task, to facilitate discussion and communication between members to reach a consensus, and in this way to better predict the completion time of the task.This approach avoids the need for some of use to be overly optimistic or pessimistic about the estimated time, and helps team members to better understand the complexity and difficulty of the task so that they can better plan and manage the project schedule.
+  
+  When we can't communicate offline, we use TEAMS or WeChat to communicate online. In teams we take minutes, review the work we have done and summarise it.
+  
+### 3.Did you have team roles?
+
+  Each of us has a very clear team responsibility.
+  
+  * HaozheYang is responsible for the game creative, interface design, game sound and animation design.
+  
+  * Xiaomeng Liu is responsible for game programming, mainly for the game framework design and implementation, and the realization of character movements, collisions and other methods relevant.
+  
+  * Zhiyu Shi is also primarily responsible for game programming, with a focus on platform design, platform automation design, and collision design between platforms and characters
+
+
