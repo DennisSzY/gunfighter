@@ -1,6 +1,6 @@
 # 2023-group-15
 
-o Team members: Xiaomeng Liu, Vishwesh Neelesh, Zhiyu Shi, Haozhe Yang
+o Team members: Xiaomeng Liu, Zhiyu Shi, Haozhe Yang
 
 o Team photo:
 
@@ -203,3 +203,9 @@ The adage "practice makes perfect" holds true in the development of games. The d
 In designing a large-scale code project, it is critical to establish a robust project framework that encompasses various classes encapsulating different functions. This approach helps ensure operational stability and facilitates pinpointing issues when problems arise in the software. It is imperative to recognize that a large-scale software project requires not only well-functioning components but also a simple data structure and minimal memory usage. These aspects are crucial in minimizing issues such as crashes and flashbacks. For instance, incorporating different sound effects into a game may seem straightforward; however, loading multiple sound effects concurrently can cause crashes, lags, and conflicts among running sounds. To address this issue, multi-threaded music playback was used to load each sound effect separately, allowing for simultaneous play without conflicts. This approach significantly improved the game's stability.
 
 For advancing the code development of our project in the furture, the attention is directed towards the incorporation of novel functionalities and non-functional requisites. Among the potential inclusions, the integration of an AI player to compete against the user, thereby enabling a single player mode, is considered. Furthermore, non-functional aspects such as enhancing the system's stability, avoiding flashbacks, and improving responsiveness, reducing the lag time between mouse clicks and system response, are deemed of utmost importance. Additionally, it is worth investigating a more effective approach towards teamwork and development processes to optimize the project's productivity and performance.
+
+## Individual contribution
+
+1. Haozhe Yang
+1. Zhiyu Shi
+1. Xiaomeng Liu
