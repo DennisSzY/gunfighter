@@ -11,7 +11,7 @@
 
 * **Team photo**
 
-![groupPhoto](C:\Users\HP\Desktop\JAVAGame\2023-group-15\groupPhoto.jpg)
+![groupPhoto](groupPhoto.jpg)
 
 
 
@@ -25,7 +25,7 @@ In the game we have several levels from easy to hard.In the easy mode, the platf
 
 ### 3.1 Where our game comes from?
 
-<img src="C:\Users\HP\Desktop\JAVAGame\2023-group-15\IdeationProcess.png" alt="IdeationProcess" style="zoom: 67%;" />
+<img src="IdeationProcess.png" alt="IdeationProcess" style="zoom:67%;" />
 
 [^Image 3-1]: Ideation process
 
@@ -35,7 +35,7 @@ In the game we have several levels from easy to hard.In the easy mode, the platf
 
 * Ultimately, we found that **NS-shaft and Gun Mayhem** shared some common user stories. Therefore, we decided to **combine these two games** for the innovation of our game.
 
-  ![image-20230504043635520](C:\Users\HP\Desktop\JAVAGame\2023-group-15\image-20230504043635520.png)
+  ![userStories](userStories.png)
 
   [^table 3-1]: user stories for three typical game
 
@@ -61,7 +61,7 @@ After coming up with initial ideas, we used user stories to identify the high-le
 
   Then we use use cases to refine our requirements and describe system behavior
 
-![userCase](C:\Users\HP\Desktop\JAVAGame\2023-group-15\userCase.png)
+![userCase](userCase.png)
 
 [^Image 3-2]: Use Case Diagram
 
@@ -114,15 +114,13 @@ Upon completion of the requirement design, our game has taken shape: it requires
 
 After defining our requirements, we began our **code design**. A good design pattern can save a lot of time in structural design. We chose the mature **Model-View-Controller (MVC) design pattern**, which is commonly used in GUI-based applications. It can effectively separate modules for easy testing and task distribution, making it ideal for team game development.  Our code design was based on this model.
 
-<img src="C:\Users\HP\Desktop\JAVAGame\2023-group-15\design pattern.png" alt="design pattern" style="zoom: 33%;" />
+![design pattern](design%20pattern.png)
 
 [^Image 4-1]: MVC design pattern; Image from：COMSM0086/Weekly Lectures/04-OXO-Briefing.pdf
 
 ### 4.2 Class Diagram
 
-
-
-![ClassDiagram](C:\Users\HP\Desktop\JAVAGame\2023-group-15\ClassDiagram.png)
+![ClassDiagram](ClassDiagram.png)
 
 [^Image 4-2]: Class Diagram
 
@@ -138,7 +136,7 @@ After defining our requirements, we began our **code design**. A good design pat
 
 When we have Objects, we need to let them collaborate to solve a problem. We chose a communication diagram instead of a sequence diagram because our overall process is relatively clear, namely initialize -> update -> display. However, the information transfer among them is not yet clear enough, and currently, our development is still in the early stages. A communication diagram can make the analysis simpler.
 
-![CommunicationDiagram](C:\Users\HP\Desktop\JAVAGame\2023-group-15\CommunicationDiagram.png)
+![CommunicationDiagram](CommunicationDiagram.png)
 
 [^Image 4-3]: Communication Diagram
 
