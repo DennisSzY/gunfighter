@@ -5,6 +5,8 @@ class Rectangle extends Shape{
    this.w = w;
    this.h = h;
   }
+  
+  //overwrite the abstract display function
  @Override
  void display(){
   if(isHover()){

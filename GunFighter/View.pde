@@ -11,6 +11,9 @@ Gif blueShootLeft, redShootLeft;
 Gif playerBlue, playerRed;
 Gif playerBlueShooted, playerRedShooted;
 Gif playerBlueShootedLeft, playerRedShootedLeft;
+Gif easyShow;
+Gif mediumShow;
+Gif hardShow;
 PImage bulletBlueRight;
 PImage bulletBlueLeft;
 PImage bulletRedRight;
@@ -24,35 +27,47 @@ Shape medium;
 Shape easy;
 Shape reset;
 
+//upload all pictures
 void uploadPic() {
+  
+    //the platform pic 
     floor = loadImage("floor.jpg");
     deadFloor = loadImage("deadline.png");
     
+    //the bullet pic
     bulletBlueRight = loadImage("bulletBlueRight.png");
     bulletBlueLeft = loadImage("bulletBlueLeft.png");
     bulletRedRight = loadImage("bulletRedRight.png");
     bulletRedLeft = loadImage("bulletRedLeft.png");
+    
+    //background pic
     backgroundImage = loadImage("background.jpg");
 
+    //player homePage and gamOver page pic
     playerBlue = new Gif (this, "playerBlue.gif");
     playerBlue.loop();
     playerRed = new Gif (this, "playerRed.gif");
     playerRed.loop();
     
+    //player was shot towards right pic
     playerBlueShooted = new Gif (this, "playerBlueShooted.gif");
     playerBlueShooted.loop();
     playerRedShooted = new Gif (this, "playerRedShooted.gif");
     playerRedShooted.loop();
 
+    //player was shot toward left pic
     playerBlueShootedLeft = new Gif (this, "playerBlueShootedLeft.gif");
     playerBlueShootedLeft.loop();
     playerRedShootedLeft = new Gif (this, "playerRedShootedLeft.gif");
     playerRedShootedLeft.loop();
     
+    //player Blue idle pic
     blueIdleRight = new Gif (this, "playerBlueDefault.gif");
     blueIdleRight.loop();
     blueIdleLeft = new Gif (this, "playerBlueFacingLeft.gif");
     blueIdleLeft.loop();
+    
+    //player Blue run/jump pic
     blueRunLeft = new Gif (this, "playerBlueMoveLeft.gif");
     blueRunLeft.loop();
     blueRunRight = new Gif (this, "playerBlueMoveRight.gif");
@@ -61,11 +76,14 @@ void uploadPic() {
     blueJumpRight.loop();
     blueJumpLeft = new Gif (this, "playerBlueJumpFacingLeft.gif");
     blueJumpLeft.loop();
+    
+    //player Blue shoot pic
     blueShootRight = new Gif (this, "playerBlueShoot.gif");
     blueShootRight.loop();
     blueShootLeft = new Gif (this, "playerBlueShootFacingLeft.gif");
     blueShootLeft.loop();   
     
+    //player Red pic
     redIdleRight = new Gif (this, "playerRedDefault.gif");
     redIdleRight.loop();
     redIdleLeft = new Gif (this, "playerRedFacingLeft.gif");
@@ -82,15 +100,29 @@ void uploadPic() {
     redShootRight.loop();
     redShootLeft = new Gif (this, "playerRedShootFacingLeft.gif");
     redShootLeft.loop();
+    
+    //Home Page difficulty level show picture
+    easyShow = new Gif (this, "easy.gif");
+    easyShow.loop();
+    mediumShow = new Gif (this, "medium.gif");
+    mediumShow.loop();
+    hardShow = new Gif (this, "hard.gif");
+    hardShow.loop();
+    
 }
 
 
+//the display of gameOver page
 public void gameOverPage() {
+    //background
     background(0);
+    //"Game Over" word
     fill(255);
     textAlign(LEFT, TOP);
     textSize(32);
     text("Game Over!", width/2-100, height/2);
+    
+    //show "winner..." word
     String winnerCol;
     if(model.winner == 1){
       winnerCol = "blue";
@@ -115,13 +147,18 @@ public void gameOverPage() {
 
 }
 
+
+//display homePage
 public void homePage() {
+  //background
   noStroke();
-  fill(0, 0, 0, 100);
+  fill(0, 0, 0, 200);
   rect(0, 0, width, height);
+  
+  //words textt display
   textAlign(LEFT, TOP);
   myFont = createFont("Arial", 80);
-  // 设置当前字体
+  // set the text font
   textFont(myFont);
   //textSize(80);
    fill(255, 172, 74, 200);
@@ -139,6 +176,7 @@ public void homePage() {
   noStroke();
   
   
+  //display the buttton
   blueButton(124, 305, 60, 60, "Z");
   blueButton(426, 280, 60, 60, "W");
   blueButton(389, 345, 60, 60, "A");
@@ -149,19 +187,26 @@ public void homePage() {
   redButton(389, 523, 60, 60, "J");
   redButton(467, 523, 60, 60, "L");
 
+   //display tthe player
   roleDisplay(235,290, 110,110, playerBlue);
   roleDisplay(235,473, 110,110, playerRed);
   
-
+  //display the button blinded with mouse clicked event
   easy.display();
   medium.display();
   hard.display();
   
-  fill(255);
-  rect(595, 327, 300, 268);
+  //display the difficulty show gif
+  if(easy.isClicked){
+    image(easyShow, 585, 360, 320, 200);
+  }else if(medium.isClicked){
+    image(mediumShow, 585, 360, 320, 200);
+  }else if(hard.isClicked){
+    image(hardShow, 585, 360, 320, 200);
+  }
   
   
-  //noStroke();
+  //"play" text display
   play = new Rectangle(949, 379, 262, 75);
   play.setFillColors(255,255,255);
   play.setText(121, 40, "PLAY", 1054, 394);
@@ -177,6 +222,8 @@ public void homePage() {
   rect(955, 382, 250, 69, 22);
 }
 
+
+//display role
 void roleDisplay(int x, int y, int w, int h, Gif imageName){
     fill(255, 255, 255, 150);
     rect(x-10, y-10, w+20, h+20);
@@ -184,6 +231,7 @@ void roleDisplay(int x, int y, int w, int h, Gif imageName){
     image(imageName, x, y+10, w, h-20);
 }
 
+//blue button
 void blueButton(int x, int y, int w, int h, String textContent){
     fill(78, 140, 246, 150);
     rect(x+4, y+4, w, h);
@@ -193,7 +241,8 @@ void blueButton(int x, int y, int w, int h, String textContent){
     fill(0, 0, 0);
     text(textContent, x+21, y+13);
 }
-  
+
+//red button  
   void redButton(int x, int y, int w, int h, String textContent){
     fill(234, 92, 92, 150);
     rect(x+4, y+4, w, h);

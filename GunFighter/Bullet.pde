@@ -1,12 +1,12 @@
 class Bullet {
     float x, y;
-    float moveSpeed = 15;
+    float moveSpeed = 20;
     float fallSpeed = 2.1;
     float h = 8;
     float w = 40;
     PImage image;
     
-    //初始化初始位置+初始速度，速度是定值，这里主要是为了给定方向
+        // Initial position + initial velocity, the velocity is a fixed value, here it is mainly for the given direction
     Bullet(float x, float y, int directionValue,float fallSpeed) {
         this.x = x;
         this.y = y;
@@ -14,13 +14,13 @@ class Bullet {
         this.fallSpeed = fallSpeed;
     }
     
-    //子弹的位置更新
+    //Bullet location update
     void update() {
         this.x = this.x + this.moveSpeed;
         this.y = this.y + this.fallSpeed;
     }
     
-    //子弹的显示
+    //Display of bullets
     void display(Player player) {
         if (moveSpeed > 0) {
             switch(player.id) {

@@ -1,28 +1,32 @@
 
 void keyPressed() {
+    //playerRed operation key pressed
     if (Character.toLowerCase(key) == model.playerRed.leftKey) { model.playerRed.pressLeftKey = true;}
     if (Character.toLowerCase(key) == model.playerRed.rightKey) { model.playerRed.pressRightKey = true;}
     if (Character.toLowerCase(key) == model.playerRed.upKey) { model.playerRed.pressUpKey = true;}
-    if (Character.toLowerCase(key) == model.playerRed.shootKey) { model.playerRed.pressShootKey = true;}
+    if (Character.toLowerCase(key) == model.playerRed.shootKey) { model.playerRed.pressShootKey = true;audioplayershoot = true;}
     
+     //playerBlue operation key pressed
     if (Character.toLowerCase(key) == model.playerBlue.leftKey) { model.playerBlue.pressLeftKey = true;}
     if (Character.toLowerCase(key) == model.playerBlue.rightKey) { model.playerBlue.pressRightKey = true;}
     if (Character.toLowerCase(key) == model.playerBlue.upKey) { model.playerBlue.pressUpKey = true;}
-    if (Character.toLowerCase(key) == model.playerBlue.shootKey) { model.playerBlue.pressShootKey = true;}
+    if (Character.toLowerCase(key) == model.playerBlue.shootKey) { model.playerBlue.pressShootKey = true;audioplayershoot = true;}
 }
 
 void keyReleased() {
+        //playerRed operation key release
+
     if (Character.toLowerCase(key) == model.playerRed.leftKey) { model.playerRed.pressLeftKey = false;}
     if (Character.toLowerCase(key) == model.playerRed.rightKey) { model.playerRed.pressRightKey = false;}
     if (Character.toLowerCase(key) == model.playerRed.upKey) { model.playerRed.pressUpKey = false;}
-    if (Character.toLowerCase(key) == model.playerRed.shootKey) { model.playerRed.pressShootKey = false;}
-    
+    if (Character.toLowerCase(key) == model.playerRed.shootKey) { model.playerRed.pressShootKey = false;audioplayershoot = false;}
+            //playerBlue operation key release
     if (Character.toLowerCase(key) == model.playerBlue.leftKey) { model.playerBlue.pressLeftKey = false;}
     if (Character.toLowerCase(key) == model.playerBlue.rightKey) { model.playerBlue.pressRightKey = false;}
     if (Character.toLowerCase(key) == model.playerBlue.upKey) { model.playerBlue.pressUpKey = false;}
-    if (Character.toLowerCase(key) == model.playerBlue.shootKey) { model.playerBlue.pressShootKey = false;}
+    if (Character.toLowerCase(key) == model.playerBlue.shootKey) { model.playerBlue.pressShootKey = false;audioplayershoot = false;}
 }
-//打包鼠标点击页面的地方
+//Wrapping up where the mouse clicks on the page
 void mouseClicked() {
     if (!model.gameStarted && play.isHover()) {
         // Start game button clicked
@@ -66,14 +70,13 @@ void clickEvent(){
         // println("size:" + model.platforms.size());
     }
     if(medium.isClicked){
-        model.platformFallSpeed = 3;
-        model.platformProduceInterval = 2000;
+        model.platformFallSpeed = 4;
+        model.platformProduceInterval = 1800;
         model.produceInitialPlatforms();
     }
     if(hard.isClicked){
-        model.platformFallSpeed = 8;
-        model.platformProduceInterval = 1500;
+        model.platformFallSpeed = 6;
+        model.platformProduceInterval = 1600;
         model.produceInitialPlatforms();
     }
 }
-

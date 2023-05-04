@@ -1,8 +1,8 @@
 class Platform {
-    private float x, y;//platform的初始位置x,y(左上角的点)
-    private float w, h;//platform的宽度，高度
-    private float moveSpeed; //move speed,1 by default.方向向下
-    private PImage image; //platform的显示图像
+    private float x, y;//Initial position of the platform x,y (point in the upper left corner)
+    private float w, h;//width height
+    private float moveSpeed; //move speed,1 by default. downward
+    private PImage image; //platform pic
     
     Platform(float x, float y, float w, float h, PImage image, float moveSpeed) {
         this.moveSpeed = moveSpeed; 
@@ -18,6 +18,6 @@ class Platform {
     }
     
     void update() {
-        this.y += moveSpeed; //向上移动，更新y的位置
+        this.y += moveSpeed; //Move up and update the position of y
     }
 }

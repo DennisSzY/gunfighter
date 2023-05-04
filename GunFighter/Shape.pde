@@ -6,12 +6,12 @@ abstract class Shape{
   String textContent;
   int textFill;
   int textX, textY;
-  boolean hasFill = false;
-  boolean hasText = false;
-  boolean hasStroke = false;
-  int strokeVal;
-  int radii = 0;
-  boolean isClicked = false;
+  boolean hasFill = false;  //whether need fill
+  boolean hasText = false;  //whether need text
+  boolean hasStroke = false;  //whether need sttroke
+  int strokeVal;  //stroke value
+  int radii = 0;  //radii of angle 
+  boolean isClicked = false;  
 
   void setFillColors(int Tricolor1, int Tricolor2, int Tricolor3){
     this.Tricolor1 = Tricolor1;
@@ -41,6 +41,7 @@ abstract class Shape{
     this.radii = rad;
   }
 
+  //check it is hover
   boolean isHover(){
     if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h){
       return true;
