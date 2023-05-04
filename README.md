@@ -206,6 +206,9 @@ For advancing the code development of our project in the furture, the attention 
 
 ## Individual contribution
 
-1. Haozhe Yang
-1. Zhiyu Shi
-1. Xiaomeng Liu
+|  individual  | contribution |
+|  ----------  | ------------ |
+|   Zhiyu Shi  |              |
+| Xiaomeng liu |              |
+| HaoZhe Yang  |              |
+
