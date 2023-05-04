@@ -21,6 +21,7 @@ Our game idea comes from gun-mayhem and NS-shaft platform game in which you can 
 
 In the game we have several levels from easy to hard.In the easy mode, the platform will be falling very slow and your weapon will be weak and harmless,it is the mode suitable for novice and the people who first play this game. You can enjoy a relaxing and enjoyable leisure time with your friends.When you and your friends are familiar with the operation Instructions of this game, you can try medium mode. In medium mode the platform will not be that easy to jump to stand because it will be fallen faster. You need to be more focused on the game and be care of the bullets coming from your friends. In the hard mode, the platform will be fallen super faster and the speed of your bullet will be faster too. Which means you will be easily killed both by shooting and platforms falling. This game needs you to have good operation ability and psychological quality, try to use skills and tactics to beat your friends!
 
+![basicGame](https://user-images.githubusercontent.com/104490863/236147811-ab24b54b-fc41-455a-a40b-ca4743e8b7fe.gif)
 
 
 ## 3. Requirements
