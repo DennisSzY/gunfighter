@@ -180,7 +180,7 @@ Teamwork. How did you work together, what tools did you use. Did you have team r
   
   When we don't know how to estimate the difficulty and time of software development, we use 'Planning Poker' to help us better understand the complexity of the task, to facilitate discussion and communication between members to reach a consensus, and in this way to better predict the completion time of the task.This approach avoids the need for some of use to be overly optimistic or pessimistic about the estimated time, and helps team members to better understand the complexity and difficulty of the task so that they can better plan and manage the project schedule.
   
-  When we can't communicate offline, we use TEAMS or WeChat to communicate online. In teams we take minutes, review the work we have done and summarise it.
+  When we can't communicate face to face, we use TEAMS or WeChat to communicate online. In teams we take minutes, review the work we have done and summarise it.
   
 ### 3.Did you have team roles?
 
