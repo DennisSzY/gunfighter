@@ -70,13 +70,13 @@ void clickEvent(){
         // println("size:" + model.platforms.size());
     }
     if(medium.isClicked){
-        model.platformFallSpeed = 3;
-        model.platformProduceInterval = 2000;
+        model.platformFallSpeed = 4;
+        model.platformProduceInterval = 1800;
         model.produceInitialPlatforms();
     }
     if(hard.isClicked){
-        model.platformFallSpeed = 8;
-        model.platformProduceInterval = 1500;
+        model.platformFallSpeed = 6;
+        model.platformProduceInterval = 1600;
         model.produceInitialPlatforms();
     }
 }

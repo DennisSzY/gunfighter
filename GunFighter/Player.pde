@@ -54,8 +54,8 @@ public class Player {
         if(isShooted){
           //if is shooted
             if(facingRight){
-                x -= 40;
-                distance += 40;
+                x -= 30;
+                distance += 30;
                 if (x  < 0) { x = 0;}
                 if (distance == 120) {
                     isShooted = false;
@@ -63,8 +63,8 @@ public class Player {
                     distance = 0;
                 }
             }else{ 
-                x += 40;
-                distance += 40;
+                x += 30;
+                distance += 30;
                 if (x + w >= width) { x = width - w;} 
                 if (distance == 120) {
                     isShooted = false;
@@ -94,7 +94,7 @@ public class Player {
             
             if (pressUpKey && onPlatform) {
               //press up key - jump
-                fallSpeed = -45; //Give an initial upward jump speed
+                fallSpeed = -40; //Give an initial upward jump speed
                 onPlatform = false;
             } else if (!onPlatform) {
                 fallSpeed += gravity;
