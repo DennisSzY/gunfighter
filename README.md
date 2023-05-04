@@ -155,7 +155,7 @@ Through the SUS graph we can see that players did not give us a very good satisf
 
 <img width="1000" alt="image" src="https://user-images.githubusercontent.com/104490863/236066503-b3d64224-9494-4ed5-ac87-b26e9faefbe2.png">
 
-## How code was tested：
+### How code was tested：
 
 As we are using processing as our platform. We did not provide any testing code to run our game.We mainly focused on user testing like Think Aloud evaluation, NASA TLX and System Usability Survey (SUS) methods. 
 
