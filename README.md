@@ -167,14 +167,15 @@ Based on the result of the questionnaire, we can conclude that our game have a v
 
 Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
 
-### 7.1.How did you work together
+### 7.1.work together method
 
   We use agile development to develop our project. We use the Agile model instead of the Waterfall model for the following reasons,first, our game inspirations are very fluid, so we needed a more flexible development model, and the agile development approach allows the team to quickly adapt development plans and tasks to changes in the project, and is therefore more flexible and better able to adapt to change and uncertainty. Secondly,We are always bursting with new game inspirations and ideas, so we need to communicate and talk often. The agile communication model places more emphasis on teamwork and communication, where team members can collaborate and communicate more closely to avoid single points of failure and development misunderstandings. So it suits our development style perfectly. Finally, we can use the agile development model to break down the development process into smaller cycles, with each cycle requiring only a portion of the functionality to be completed, so we can control time and costs more precisely, avoiding delays and saving time and costs.
   
-  First we split the game project into two main parts, one for the game design and the other for the game content execution. The game design is done by one person and the game content is done by two people. The game designer is responsible for proposing the effects that the game needs to achieve, and then providing the images or GIF animations that need to be used in the game to the corresponding person in charge. The person in charge then has to communicate with the designer to ensure that the ideas are implemented.
+  First we split the game project into two main parts, one for the game design and the other for the game content execution. The game design is done by one person and the game content is done by two people. Firstly, we complete a Minimun Viable Product (MVP). Then the game designer is responsible for proposing the effects that the game needs to achieve, and then providing the images or GIF animations that need to be used in the game to the corresponding person in charge. The person in charge then has to communicate with the designer to ensure that the ideas are implemented. 
   
   We have weekly meetings where we test and iterate on the existing code to ensure the quality and stability of the game. Then a new week is planned based on the existing game content.
-### 7.2.what tools did you use
+  
+### 7.2.Tools used
 
   There are several tools we used in team development.For game designing we use kanban board and planning poker. The Kanban board worked really well, we would list the tasks that needed to be done and the key objectives of the game development and break them down into smaller, more specific tasks. I would then set priorities and estimate completion times for each task.Then it was used to track progress and collaborate on communication based on the complexity and number of tasks. 
   
@@ -182,7 +183,7 @@ Teamwork. How did you work together, what tools did you use. Did you have team r
   
   When we can't communicate face to face, we use TEAMS or WeChat to communicate online. In teams we take minutes, review the work we have done and summarise it.
   
-### 7.3.Did you have team roles?
+### 7.3.Team roles
 
   Each of us has a very clear team responsibility.
   
@@ -192,4 +193,13 @@ Teamwork. How did you work together, what tools did you use. Did you have team r
   
   * Zhiyu Shi is also primarily responsible for game programming, with a focus on platform design, platform automation design, and collision design between platforms and characters, report contributor.
 
+The importance of teamwork throughout the development process cannot be overstated. And frequent team communication and collaboration is the most crucial way to promote teamwork. Sometimes working alone on different tasks and sometimes collaborating to solve challenges. The process of software development is complex and a team approach can make it much simpler to discuss problems together, especially in a larger software engineering project where the strength and wisdom of one person is clearly not enough.
 
+
+## 8.Conclusion
+
+The adage "practice makes perfect" holds true in the development of games. The development process entails challenges that are often unforeseen and can pose a significant obstacle to success. Moreover, designing a game collaboratively presents challenges that are not encountered when working independently. Therefore, it is crucial to design code that is readable, stable, and fully encapsulated to avoid conflicts with other developers' code.
+
+In designing a large-scale code project, it is critical to establish a robust project framework that encompasses various classes encapsulating different functions. This approach helps ensure operational stability and facilitates pinpointing issues when problems arise in the software. It is imperative to recognize that a large-scale software project requires not only well-functioning components but also a simple data structure and minimal memory usage. These aspects are crucial in minimizing issues such as crashes and flashbacks. For instance, incorporating different sound effects into a game may seem straightforward; however, loading multiple sound effects concurrently can cause crashes, lags, and conflicts among running sounds. To address this issue, multi-threaded music playback was used to load each sound effect separately, allowing for simultaneous play without conflicts. This approach significantly improved the game's stability.
+
+For advancing the code development of our project in the furture, the attention is directed towards the incorporation of novel functionalities and non-functional requisites. Among the potential inclusions, the integration of an AI player to compete against the user, thereby enabling a single player mode, is considered. Furthermore, non-functional aspects such as enhancing the system's stability, avoiding flashbacks, and improving responsiveness, reducing the lag time between mouse clicks and system response, are deemed of utmost importance. Additionally, it is worth investigating a more effective approach towards teamwork and development processes to optimize the project's productivity and performance.
