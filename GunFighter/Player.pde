@@ -1,34 +1,34 @@
 public class Player {
     
-    //默认y向下为正，向右为正...
-    float x, y; //position,按照图片的右上角算起
+    //Default y down is positive, right is positive...
+    float x, y; //position,按Top right corner
     
     final float w = 50; //width
     final float h = 50; //height
     
     //player 的速度信息
-    float moveSpeed = 0; //horizontal velocity,朝右为正，朝左为负
-    final float maxMoveSpeed = 10;  //水平速度最大值, 是绝对值，使用的时候需要乘以方向系数...
-    final float acc = 5; //horizontal acc，水平加速度 ，是绝对值，使用的时候需要乘以方向系数...
+    float moveSpeed = 0; //horizontal velocity, Positive towards the right, negative towards the left
+    final float maxMoveSpeed = 10;  //Maximum horizontal speed, absolute value, to be used by multiplying by the direction factor....
+    final float acc = 5; //horizontal acc，The horizontal acceleration, which is an absolute value, needs to be multiplied by a direction factor when using...
     float fallSpeed = 0;
     final float maxFallspeed = 20;
     final float gravity = 3;//vertical acc
     
-    //player的状态信息
-    //-位置信息
+    //player status infomation
+    //-position
     boolean onPlatform;
     boolean facingRight;
-    //射击状态
+    //shoot status
     boolean isShooting;
     boolean isShooted;
     //
     int id;
-    //子弹数量,表示该玩家已经打出去的子弹数量
+    //Number of bullets, indicating the number of bullets the player has fired
     ArrayList<Bullet> firedBullets = new ArrayList<>();
     float bulletProduceInterval = 400; // milliseconds
     float lastBulletProduceTime = 0; // milliseconds
     float platformFallSpeed;
-    //player的操作键位
+    //The player's operating keys
     char leftKey,rightKey,upKey,shootKey;
     public void setOpkeys(char leftKey, char rightKey, char upKey, char shootKey) {
         this.leftKey = leftKey;
@@ -38,7 +38,7 @@ public class Player {
     }
     Boolean pressLeftKey = false, pressRightKey = false, pressUpKey = false, pressShootKey = false;
     
-    //构造函数
+    //constructor
     Player(float x, float y, boolean facingRight, int id, float platformFallSpeed) {
         this.x = x;
         this.y = y;
@@ -50,7 +50,9 @@ public class Player {
     
     int distance = 0;
     void update() {
+     
         if(isShooted){
+          //if is shooted
             if(facingRight){
                 x -= 40;
                 distance += 40;
@@ -70,7 +72,9 @@ public class Player {
                 }
             }
         }else{
+          //not be shooted
             if (pressLeftKey && !pressRightKey) {
+              //towards left
                 moveSpeed += -acc; //update speed
                 if (moveSpeed <= -maxMoveSpeed) {moveSpeed = -maxMoveSpeed;} //限制最大速度
                 //update position
@@ -79,6 +83,7 @@ public class Player {
                 facingRight = false; //update facing direction
             } 
             else if (pressRightKey && !pressLeftKey) {
+              //towards right
                 moveSpeed += acc;
                 if (moveSpeed >= maxMoveSpeed) { moveSpeed = maxMoveSpeed;}
                 //走出屏幕边界了....
@@ -88,7 +93,8 @@ public class Player {
             }
             
             if (pressUpKey && onPlatform) {
-                fallSpeed = -45; //给一个初始的向上跳的速度
+              //press up key - jump
+                fallSpeed = -45; //Give an initial upward jump speed
                 onPlatform = false;
             } else if (!onPlatform) {
                 fallSpeed += gravity;
@@ -97,13 +103,14 @@ public class Player {
             }
             
             if (pressShootKey) {
+              //shoo
                 isShooting = true;
                 Bullet bullet;
                 int right = 1;
                 int left = -1;
                 if (millis() - lastBulletProduceTime > bulletProduceInterval) {
                     if (facingRight) {
-                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, right, platformFallSpeed+0.1); //这个数值是根据视觉效果在枪口处来调整的
+                        bullet = new Bullet(this.x + this.w / 2, this.y + 10, right, platformFallSpeed+0.1); //This value is adjusted according to the visual effect at the muzzle
                     } else{
                         bullet = new Bullet(this.x + this.w / 2, this.y + 10, left, platformFallSpeed+0.1);
                     }
@@ -115,6 +122,7 @@ public class Player {
         }
     }
     
+    //bullet status update
     void firedBulletsUpdate() {
         for (int i = firedBullets.size() - 1; i >= 0; i--) {
             Bullet bullet = firedBullets.get(i);
@@ -127,6 +135,7 @@ public class Player {
     }
     
     
+    //check it is land on the platform
     void landOnPlatform(ArrayList<Platform> platforms) {
         for (int i = 0; i < platforms.size(); i++) {
             Platform platform = platforms.get(i);
@@ -138,6 +147,7 @@ public class Player {
         onPlatform = false;
     }  
     
+    //check it is collide - player is land on the platform
     boolean collide(float platformX, float platformY, float platformWidth, float platformHeight, float platformSpeed) { 
         if (y + h >= platformY && y < platformY + platformHeight && x + w - 10 > platformX && x + 10 < platformX + platformWidth) { //这一帧会相撞
             if (fallSpeed >= platformSpeed) { // while falling
@@ -158,6 +168,7 @@ public class Player {
         return false;
     }  
     
+    //check player is shooted
     void collideWithBullet(ArrayList<Bullet> firedBullets) {
         //boolean flag = false;
         for (int i = 0; i < firedBullets.size(); i++) {
@@ -185,7 +196,7 @@ public class Player {
     
     
     void display() {
-        //被击中状态
+        //State of being hit
         if (isShooted) {
             if (facingRight) {
                 switch(id) {
@@ -199,7 +210,7 @@ public class Player {
                 }
             }
         }
-        //非射击状态
+        //Non-shooting status
         else if (!isShooting && facingRight) {
             //jump
             if (!onPlatform) {
@@ -247,7 +258,7 @@ public class Player {
             }
             
         } 
-        //射击状态
+        //shooting status
         else if (isShooting) {
             isShooting = false;
             if (facingRight) {

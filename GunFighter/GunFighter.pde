@@ -1,9 +1,9 @@
 import gifAnimation.*;
 import ddf.minim.*;
-import processing.sound.*;
 
 Model model;
 
+//setup before draw
 void setup() {
     uploadPic();
     uploadAudio();
@@ -12,14 +12,15 @@ void setup() {
 }
 
 void draw() {
-    //println(model.platformFallSpeed);
     image(backgroundImage, 0, 0, width, height);
     if (!model.gameStarted) {
+      //game not strat
         notStart();
         endsound.pause();
         endsound.rewind();
         startsound.play();
     } else{
+      //game start
         startsound.pause();
         startsound.rewind();
         if (!model.gameOver) {
@@ -32,6 +33,7 @@ void draw() {
             fightingAudio();
         }
         else{
+          //game over
             gameOverPage();
             playbackgroundstop();
             endsound.play();

@@ -2,7 +2,7 @@ public class Model {
     ArrayList<Platform> platforms;
     Platform deadPlatform;
     float lastPlatformProduceTime; // milliseconds
-    float platformProduceInterval; // 平台生成的时间间隔为2000毫秒milliseconds
+    float platformProduceInterval; // Platform generation interval
     
     Player playerBlue; //id = 1
     Player playerRed; //id = 2
@@ -17,6 +17,7 @@ public class Model {
         resetGame();
     }
     
+    //initial the platforms
     void produceInitialPlatforms(){
         platforms.clear();
         Platform platform1 = new Platform(0, height / 1.5, width / 4, 20, floor, platformFallSpeed);
@@ -66,7 +67,7 @@ public class Model {
     void updatePlayer(Player playerShooted, ArrayList<Platform> platforms, Player playerShooting) {
         playerShooted.update();
         
-        //静止状态下随平台移动
+        //Moves with the platform when stationary
         if (playerShooted.onPlatform) {
             playerShooted.fallSpeed = platforms.get(platforms.size()-1).moveSpeed;
             playerShooted.y += playerShooted.fallSpeed;
